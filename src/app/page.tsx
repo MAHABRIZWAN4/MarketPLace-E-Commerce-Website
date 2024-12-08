@@ -1,14 +1,13 @@
-// IMPORT HOME PAGES
 import HomePage2 from './pages/Homepage2';
 import HomePage3 from './pages/Homepage3';
 import HomePage4 from './pages/Homepage4';
 import HomePage5 from './pages/Homepage5';
 import Homepage6 from './pages/Homepage6';
-
-
 import { Anton } from 'next/font/google';
 const anton = Anton({ subsets: ['latin'], weight: ["400"] });
 import Image from 'next/image';
+
+
 export default function Home() {
   return (
 <>
@@ -91,3 +90,4 @@ export default function Home() {
 
   );
 }
+
