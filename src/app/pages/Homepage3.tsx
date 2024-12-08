@@ -12,9 +12,9 @@ import { FaStar } from "react-icons/fa";
 export default function Homepage3() {
   return (
    <main className='h-[650px] flex justify-center  items-center'>
-    <div className=' h-[550px] w-[1100px]  '>
+    <div className=' h-[550px] w-[1100px]  bg-red-800iit'>
 {/* content div */}
-<div>
+<div className='bg-red-300'>
 {/* for heading */}
 <h1 className={`flex justify-center text-[48px] font-bold ${anton.className}`} >NEW ARRIVALS</h1>
 
