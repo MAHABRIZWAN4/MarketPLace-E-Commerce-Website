@@ -1,4 +1,4 @@
-import { FaStarHalfAlt } from "react-icons/fa"
+
 import { FaStarHalf } from "react-icons/fa";
 import { Anton } from 'next/font/google';
 import Image from 'next/image';

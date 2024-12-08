@@ -5,7 +5,7 @@ import HomePage5 from './pages/Homepage5';
 import Homepage6 from './pages/Homepage6';
 import { Anton } from 'next/font/google';
 const anton = Anton({ subsets: ['latin'], weight: ["400"] });
-import Image from 'next/image';
+
 
 
 export default function Home() {
