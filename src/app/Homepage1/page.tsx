@@ -2,10 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-Image
 export default function Home() {
   return (
-    <>
+
    <div className=''>
 
 
@@ -54,7 +53,7 @@ export default function Home() {
 
 
 </div>
-    </>
+
   );
 }
 
