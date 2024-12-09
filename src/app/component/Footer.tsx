@@ -1,6 +1,5 @@
 import Image from "next/image";
 import React from "react";
-
 import { MdEmail } from "react-icons/md";
 import { FaTwitter } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
@@ -12,7 +11,7 @@ const Footer = () => {
     <div className="bg-[#F0F0F0] mt-44">
   {/* Newsletter Section */}
   <div className="max-w-6xl relative bottom-16 w-full mt-16 mx-auto flex flex-col lg:flex-row items-center justify-between gap-8 rounded-[20px] py-[36px] px-[24px] lg:px-[64px] bg-black text-white">
-    <div  className="lg:flex-1 text-center lg:text-left">
+    <div className="lg:flex-1 text-center lg:text-left">
    <h1 className="w-full sm:w-[80%] md:w-[60%] lg:w-[551px] font-bold text-[18px] sm:text-[24px] md:text-[32px] lg:text-[40px] leading-snug sm:leading-normal lg:leading-tight text-center sm:text-left">
   STAY UPTO DATE ABOUT OUR LATEST OFFERS
 </h1>
@@ -130,11 +129,11 @@ const Footer = () => {
     <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between text-sm text-slate-400 px-4 sm:px-6 lg:px-8">
       <p>Shop.co © 2000-2023, All Rights Reserved</p>
       <div className="flex gap-4 mt-4 sm:mt-0">
-        <Image src="/images/f1.png" alt="footer" width={80} height={80}/>
-        <Image src="/images/f2.png" alt="footer" width={80} height={80}/>
-        <Image src="/images/f3.png" alt="footer" width={80} height={80}/>
-        <Image src="/images/f4.png" alt="footer" width={80} height={80}/>
-        <Image src="/images/f5.png" alt="footer" width={80} height={80}/>
+        <Image src="/image32.png" alt="footer" width={80} height={80}/>
+        <Image src="/image27.png" alt="footer" width={80} height={80}/>
+        <Image src="/image28.png" alt="footer" width={80} height={80}/>
+        <Image src="/image29.png" alt="footer" width={80} height={80}/>
+        <Image src="/image30.png" alt="footer" width={80} height={80}/>
       </div>
     </div>
   </footer>
@@ -144,4 +143,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default Footer;

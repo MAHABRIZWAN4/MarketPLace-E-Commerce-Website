@@ -2,50 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
-#image1 {
-  background-image: url("/image1.png");
-  height: 300px; /* Set height */
-  width: 100%;   /* Set width */
-  background-size: cover; /* Optional: ensures the image covers the div */
+
+
+
+
+
+.bg{
+  background-image: url("/bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center ;
+  position: relative;
+
+
+}
+
+.bg1{
+  background-image: url("/bg1.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center bottom ;
+  position: relative;
+  
   
 }
 
 
-
-#bg1 {
-  background-image: url("/image15.png");
-  background-size:  cover; /* Optional: ensures the image covers the div */
+.bg2{
+  background-image: url("/bg2.png");
+  background-size:  cover;
+  background-size: cover;
+  background-position: center left; 
   background-repeat: no-repeat;
-  background-position: center bottom;
+
+
 }
 
-
-
-
-
-#bg2 {
-  background-image: url("/image16.png");
-  background-size:  cover; /* Optional: ensures the image covers the div */
+.bg3{
+  background-image: url("/bg3.png");
+  background-size: cover;
+  background-position: center left; 
   background-repeat: no-repeat;
-  background-position: center bottom;
+
+
 }
-
-
-#bg3 {
-  background-image: url("/image17.png");
-  background-size:  cover; /* Optional: ensures the image covers the div */
-  background-repeat: no-repeat;
-  background-position: center bottom;
-}
-
-
-#bg4 {
-  background-image: url("/image18.png");
-  background-size:  cover; /* Optional: ensures the image covers the div */
-  background-repeat: no-repeat;
-  background-position: center bottom;
-}
-
 
 @layer base {
   :root {
@@ -117,6 +117,20 @@
   }
   
 }
+
+
+
+
+
+/* Responsive media query */
+@media screen and (max-width: 768px) {
+  .card-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+
 
 
 

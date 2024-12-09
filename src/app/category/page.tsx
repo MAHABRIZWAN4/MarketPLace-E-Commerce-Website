@@ -1,5 +1,6 @@
 import React from "react";
 import { FaStar } from "react-icons/fa";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -18,7 +19,7 @@ export default function Home() {
                 <label htmlFor={category.toLowerCase()}>{category}</label>
               </li>
             ))}
-  </ul>
+          </ul>
         </div>
 
         {/* Price Filter */}
@@ -45,8 +46,9 @@ export default function Home() {
             ))}
           </div>
         </div>
-  {/* Size Filter */}
-  <div className="mb-4">
+
+        {/* Size Filter */}
+        <div className="mb-4">
           <h3 className="font-semibold mb-2">Size</h3>
           <div className="flex flex-wrap gap-3">
             {["Small", "Medium", "Large", "X-Large", "3XL Large", "4XL Large"].map((size, index) => (
@@ -59,6 +61,7 @@ export default function Home() {
             ))}
           </div>
         </div>
+
         {/* Dress Style Filter */}
         <div className="mb-4">
           <h3 className="font-semibold mb-2">Dress Style</h3>
@@ -75,22 +78,25 @@ export default function Home() {
         {/* Apply Filter Button */}
         <button className="mt-4 bg-black text-white px-4 py-2 rounded">Apply Filter</button>
       </aside>
-   {/* Product Grid */}
-   <main className="w-full md:w-3/4 p-4">
+
+      {/* Product Grid */}
+      <main className="w-full md:w-3/4 p-4">
         <h1 className="text-[32px] font-bold mb-4">Casual</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {[
-            { name: "Gradient Graphic T-Shirt", price: "$145", img: "/images/brand1.png" },
-            { name: "Polo with Tipping Details", price: "$180", img: "/images/brand2.png" },
-            { name: "Black Striped T-Shirt", price: "$120", img: "/images/brand3.png" },
-            { name: "Skinny Fit Jeans", price: "$240", img: "/images/brand4.png" },
-            { name: "Checkered Shirt", price: "$180", img: "/images/brand5.png" },
-            { name: "Sleeve Striped T-Shirt", price: "$130", img: "/images/brand6.png" },
+            { name: "Gradient Graphic T-Shirt", price: "$145", img: "/image19.png" },
+            { name: "Polo with Tipping Details", price: "$180", img: "/image20.png" },
+            { name: "Black Striped T-Shirt", price: "$120", img: "/image21.png" },
+            { name: "Skinny Fit Jeans", price: "$240", img: "/image22.png" },
+            { name: "Checkered Shirt", price: "$180", img: "/image23.png" },
+            { name: "Sleeve Striped T-Shirt", price: "$130", img: "/image24.png" },
           ].map((item, index) => (
             <div key={index} className="border p-4 rounded">
-              <img
+              <Image
                 src={item.img}
                 alt={item.name}
+                width={200} 
+                height={200}
                 className="h-[298px] w-full rounded-[20px] bg-[#F0EEED] object-cover mb-4"
               />
               <h3 className="font-bold mt-2">{item.name}</h3>
@@ -99,13 +105,13 @@ export default function Home() {
                 <FaStar className='text-yellow-400' />
                 <FaStar className='text-yellow-400' />
                 <FaStar className='text-yellow-400' />
-                </div>
+              </div>
               <p className="text-[24px] font-bold">{item.price}</p>
             </div>
           ))}
         </div>
       </main>
-    </div>
+    </div>
   );
 }
 
