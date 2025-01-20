@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import { IoSearchOutline } from "react-icons/io5";
 import { CiHeart } from "react-icons/ci";
@@ -5,6 +6,7 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 import { Menu } from "lucide-react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 
+import { useSelector } from "react-redux";
 import {
   Sheet,
   SheetContent,
@@ -14,9 +16,25 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
+
 import Link from "next/link";
 
 function Navbar() {
+
+
+    let cartItems = useSelector((state: any) => state.cart);
+  
+
   return (
     <div>
       <header className="max-w-7xl mx-auto body-font">
@@ -40,7 +58,12 @@ function Navbar() {
             >
               Shop
             
+
+
+
             </Link>
+
+
                   </li>
                   <li>
                     <Link
@@ -80,7 +103,19 @@ function Navbar() {
               className="mr-5 flex items-center justify-center gap-1 hover:text-gray-900 hover:cursor-pointer hover:underline"
             >
               Shop
-              <MdKeyboardArrowDown />
+
+ 
+              <DropdownMenu>
+  <DropdownMenuTrigger><MdKeyboardArrowDown /></DropdownMenuTrigger>
+  <DropdownMenuContent>
+    
+    <DropdownMenuSeparator />
+    <DropdownMenuItem><Link href="/category">Category</Link></DropdownMenuItem>
+    <DropdownMenuItem>Billing</DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>
+
+
             </Link>
             <Link
               href="/Homepage4"
@@ -110,7 +145,18 @@ function Navbar() {
               className="hidden md:block md:w-[300px] w-[500] lg:w-[300px] h-[38px] rounded-[50px] bg-[#F5F5F5] placeholder:pl-11"
             />
             <div className="flex gap-1 ml-4 ">
-              <MdOutlineShoppingCart className="w-[22.13px] h-[20.25px]" />
+<Link href="/cart">             
+<button className="relative text-[25px]" >
+    <  MdOutlineShoppingCart  />
+
+    {cartItems.length > 0 && (
+    <span className="absolute text-[12px] top-0 right-[-5px] bg-red-500 w-[18px] h-[15px] rounded-3xl  text-center text-white font-bold">{cartItems.length}</span>
+
+    ) }
+
+   
+    </button></Link>
+
               <CiHeart className="w-[22.13px] h-[20.25px]" />
             </div>
           </div>

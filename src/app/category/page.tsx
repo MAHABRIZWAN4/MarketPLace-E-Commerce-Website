@@ -1,12 +1,59 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
 import Image from "next/image";
+import { sanityFetch } from "@/sanity/lib/fetch";
+import { allproducts } from "@/sanity/lib/queries";
+
+type Product = {
+  _id: string;
+  name: string;
+  price: number;
+  description: string;
+  imageUrl: string;
+};
 
 export default function Home() {
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const productsPerPage = 9;
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const products: Product[] = await sanityFetch({ query: allproducts });
+        setAllProducts(products);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Failed to fetch products:", error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  const totalPages = Math.ceil(allProducts.length / productsPerPage);
+  const startIndex = (currentPage - 1) * productsPerPage;
+  const endIndex = startIndex + productsPerPage;
+  const productsToDisplay = allProducts.slice(startIndex, endIndex);
+
+  const goToPage = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="max-w-7xl mx-auto p-6 flex flex-col md:flex-row bg-red-60 px-4 md:px-14">
       {/* Sidebar */}
-      <aside className="w-full md:w-1/4 p-4 border-r bg-gray-100 mb-6 md:mb-0">
+      
+        {/* Add your filter code here */}
+        <aside className="w-full md:w-1/4 p-4 border-r bg-gray-100 mb-6 md:mb-0">
         <h2 className="text-lg font-bold mb-4">Filters</h2>
 
         {/* Category Filter */}
@@ -79,47 +126,49 @@ export default function Home() {
         <button className="mt-4 bg-black text-white px-4 py-2 rounded">Apply Filter</button>
       </aside>
 
+
+
+
       {/* Product Grid */}
       <main className="w-full md:w-3/4 p-4">
         <h1 className="text-[32px] font-bold mb-4">Casual</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {[
-            { name: "Gradient Graphic T-Shirt", price: "$145", img: "/image19.png" },
-            { name: "Polo with Tipping Details", price: "$180", img: "/image20.png" },
-            { name: "Black Striped T-Shirt", price: "$120", img: "/image21.png" },
-            { name: "Skinny Fit Jeans", price: "$240", img: "/image22.png" },
-            { name: "Checkered Shirt", price: "$180", img: "/image23.png" },
-            { name: "Sleeve Striped T-Shirt", price: "$130", img: "/image24.png" },
-          ].map((item, index) => (
-            <div key={index} className="border p-4 rounded">
+          {productsToDisplay.map((item) => (
+            <div key={item._id} className="border p-4 rounded">
               <Image
-                src={item.img}
+                src={item.imageUrl}
                 alt={item.name}
-                width={200} 
+                width={200}
                 height={200}
                 className="h-[298px] w-full rounded-[20px] bg-[#F0EEED] object-cover mb-4"
               />
               <h3 className="font-bold mt-2">{item.name}</h3>
-              <div className='flex items-center'>
-                <FaStar className='text-yellow-400' />
-                <FaStar className='text-yellow-400' />
-                <FaStar className='text-yellow-400' />
-                <FaStar className='text-yellow-400' />
+              <div className="flex items-center">
+                <FaStar className="text-yellow-400" />
+                <FaStar className="text-yellow-400" />
+                <FaStar className="text-yellow-400" />
+                <FaStar className="text-yellow-400" />
               </div>
               <p className="text-[24px] font-bold">{item.price}</p>
             </div>
           ))}
         </div>
+
+        {/* Pagination */}
+        <div className="flex justify-center mt-6 space-x-4">
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index}
+              onClick={() => goToPage(index + 1)}
+              className={`px-4 py-2 border rounded ${
+                currentPage === index + 1 ? "bg-black text-white" : "bg-gray-200"
+              }`}
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
       </main>
     </div>
-  );
+  );
 }
-
-
-
-
-
-
-
-
-

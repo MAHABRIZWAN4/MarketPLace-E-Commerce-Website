@@ -34,10 +34,10 @@ const Footer = () => {
         <div className=" ml-36 md:ml-0 flex flex-col items-center justify-center">
         <div className="flex items-center ">
           <MdEmail className="relative right-[108px] text-[25px] text-gray-400"/>
-        <input type="text" placeholder="Enter your email address" className="mr-6 w-[250px] sm:w-[349px]  py-[12px] px-[16px] h-[48px] rounded-[62px] ml-[-150px] placeholder:px-[38px]"/>
+        <input type="text" placeholder="Enter your email address" className="mr-6 w-[250px] sm:w-[349px]  py-[12px]  h-[48px] rounded-[62px] ml-[-150px] placeholder:px-[38px] text-black px-14"/>
         </div>
-        <div className="bg-white text-black font-semibold text-center w-[250px] sm:w-[349px] h-[48px] rounded-[50px] mt-4 py-[12px] px-[16px] ml-[-150px]">
-          <p>Subscribe to Newsletter</p>
+        <div className="bg-white text-black font-semibold text-center w-[250px] sm:w-[349px] h-[48px] rounded-[50px] mt-4 py-[12px] px-[16px] ml-[-150px] hover:bg-gray-200">
+        <button>Subscribe to Newsletter</button> 
         </div>
       </div>
     </div>

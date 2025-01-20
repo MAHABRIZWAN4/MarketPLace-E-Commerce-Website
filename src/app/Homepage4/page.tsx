@@ -1,147 +1,176 @@
 
-import { FaStarHalf } from "react-icons/fa";
-import Image from 'next/image';
-
-
-import { FaStar } from "react-icons/fa";
+import React from "react";
+import { FaStarHalf, FaStar } from "react-icons/fa";
+import Image from "next/image";
 import Link from "next/link";
 
+import { sanityFetch } from "@/sanity/lib/fetch";
+import { selling_fourproducts } from "@/sanity/lib/queries";
 
 
-export default function Homepage4() {
+
+
+
+
+
+type Product = {
+  _id:string,
+  name:string,
+  price:number,
+  description:string,
+  imageUrl:string,
+  discountPercent?:number
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export default async function Homepage3() {
+ 
+
+
+
+
+// Sanity 
+const sellingProducts:Product[] = await sanityFetch({query:selling_fourproducts}) 
+
+
+  
+
+
+
   return (
-    <main className='px-10 h-auto flex justify-center items-center'>
-      <div className='h-auto w-full max-w-7xl   px-4 '>
-        {/* Content div */}
-        <div>
+    <main className="h-auto flex justify-center items-center py-8 px-4 animate-fade-in">
+      <div className="w-full max-w-[1200px]">
+        {/* Content Section */}
+        <div className="px-4 py-6">
           {/* Heading */}
-          <h1
-            className={`flex justify-center text-[45px] font-bold sm:text-[55px] `}
-          >
-            TOP SELLING
+          <h1 className="flex justify-center text-[48px] sm:text-[40px] lg:text-[48px] font-extrabold animate-zoom-in">
+          TOP SELLING
           </h1>
 
-          {/* Cards container */}
-          <div className='w-full  mt-4 flex flex-col md:flex md:flex-row  gap-10 justify-center  '>
-            {/* Card 1 */}
-          
-          
-            <div className='flex flex-col gap-4 w-[295px]'>
-              <div className='bg-gray-300 h-[300px] rounded-[20px] flex items-center justify-center'>
-                <Image src="/image11.png" alt='Jeans' height={400} width={400} className="w-[300px] h-auto" />
-              </div>
-              <div>
-                <h1 className='font-extrabold'>Vertical Stripped Shirt</h1>
-                <div className="flex flex-row gap-2">
-                  <div className="flex flex-row gap-1">
-                    {[...Array(4)].map((_, i) => (
-                      <FaStar key={i} color="orange" size={20} />
-                    ))}
-                    <FaStarHalf color="orange" size={20} />
+          {/* Cards Container */}
+          <div className="w-full mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" >
+            {/* Card */}
+            {sellingProducts.map((item: any, index: any) => (
+              <div key={item._id} className="flex flex-col gap-2 card-container">
+                <Link href={`/product/${item._id}`}>
+                  <div className="bg-gray-30 flex items-center justify-center rounded-[20px] h-[300px] w-full overflow-hidden card">
+                    <Image
+                      src={item.imageUrl}
+                      alt={item.name}
+                      height={400}
+                      width={400}
+                      className="rounded-[20px] w-[300px] h-auto hover-zoom"
+                    />
                   </div>
-                  <p className='text-sm' style={{ fontWeight: 400 }}>
-                    5.0/<span className='text-gray-600'>5</span>
-                  </p>
-                </div>
-                <div className='flex flex-row gap-4'>
-                  <h1 className='text-2xl font-semibold'>$212</h1>
-                </div>
-              </div>
-            </div>
+                </Link>
+                <h1 className="font-bold text-[20px]">{item.name}</h1>
+                <div className="flex justify-between items-center">
 
-
-
-            <div className='flex flex-col gap-4 w-[295px]'>
-              <div className='bg-gray-300 h-[300px] rounded-[20px] flex items-center justify-center'>
-                <Image src="/image12.png" alt='Jeans' height={400} width={400} className="w-[300px] h-auto" />
-              </div>
-              <div>
-                <h1 className='font-extrabold'>Courage Graphic T-Shirt</h1>
-                <div className="flex flex-row gap-2">
-                  <div className="flex flex-row gap-1">
-                    {[...Array(4)].map((_, i) => (
-                      <FaStar key={i} color="orange" size={20} />
-                    ))}
-                    <FaStarHalf color="orange" size={20} />
-                  </div>
-                  <p className='text-sm' style={{ fontWeight: 400 }}>
-                    4.0/<span className='text-gray-600'>5</span>
-                  </p>
-                </div>
-                <div className='flex flex-row gap-4'>
-                  <h1 className='text-2xl font-semibold'>$145</h1>
-                </div>
-              </div>
-            </div>
-
-
-
-
-            <div className='flex flex-col gap-4 w-[295px]'>
-              <div className='bg-gray-300 h-[300px] rounded-[20px] flex items-center justify-center'>
-                <Image src="/image13.png" alt='Jeans' height={400} width={400} className="w-[300px] h-auto" />
-              </div>
-              <div>
-                <h1 className='font-extrabold'>Loose Fit  Bermuda Shorts </h1>
-                <div className="flex flex-row gap-2">
-                  <div className="flex flex-row gap-1">
-                    {[...Array(4)].map((_, i) => (
-                      <FaStar key={i} color="orange" size={20} />
-                    ))}
-                    <FaStarHalf color="orange" size={20} />
-                  </div>
-                  <p className='text-sm' style={{ fontWeight: 400 }}>
-                    3.0/<span className='text-gray-600'>5</span>
-                  </p>
-                </div>
-                <div className='flex flex-row gap-4'>
-                  <h1 className='text-2xl font-semibold'>$80</h1>
-                </div>
-              </div>
-            </div>
-
-
-
-
-            <div className='flex flex-col gap-4 w-[295px]'>
-              <div className='bg-gray-300 h-[300px] rounded-[20px] flex items-center justify-center'>
-                <Image src="/image14.png" alt='Jeans' height={400} width={400} className="w-[300px] h-auto" />
-              </div>
-              <div>
-                <h1 className='font-extrabold'>Faded Skinny Jeans</h1>
-                <div className="flex flex-row gap-2">
-                  <div className="flex flex-row gap-1">
-                    {[...Array(4)].map((_, i) => (
-                      <FaStar key={i} color="orange" size={20} />
-                    ))}
-                    <FaStarHalf color="orange" size={20} />
-                  </div>
-                  <p className='text-sm' style={{ fontWeight: 400 }}>
-                    4.5/<span className='text-gray-600'>5</span>
-                  </p>
-                </div>
-                <div className='flex flex-row gap-4'>
-                  <h1 className='text-2xl font-semibold'>$212</h1>
-                </div>
-              </div>
-            </div>
-
-
-
-
-            </div>
 
      
+     
+    
+     
+                  <div className="flex gap-1 rating">
 
-            {/* Card 4 */}
-       
 
-          {/* Button */}
-          <div className='flex justify-center items-center  mt-12'>
+
+
+                    {[...Array(4)].map((_, index) => (
+                      <span key={index} className="text-[#FFC633]"><FaStar className="w-[18.49px] h-[18.49px]"/></span>
+                    ))}
+                      <span key={index} className="text-[#FFC633]"><FaStarHalf className="w-[18.49px] h-[18.49px]"/></span>
+                   
+                    <span className=" text-[14px] font-medium text-black ">4.5/</span>
+                    <span className="text-gray-600 text-[14px] font-medium">5</span>
+
+                  </div> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+                <div className="flex flex-row gap-4 items-center">
+                  <h1 className="text-2xl font-bold">${item.price}</h1>
+                  
+                  
+
+{item.discountPercent > 0 && ( 
+  <h1 className="text-2xl text-gray-500 font-bold line-through">
+    $298
+  </h1>
+)} 
+
+
+ {item.discountPercent > 0  && (
+<button className="w-[58px] h-[28px] text-red-700 bg-[#FF33331A] rounded-2xl">
+-{item.discountPercent}%
+</button>)}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* View All Button */}
+          <div className="flex justify-center mt-12">
             <Link href="/category">
-            <button className='w-[218px] h-[52px] border border-gray-600 rounded-[62px] flex items-center justify-center text-[15px] font-bold hover:bg-black hover:text-white mb-12'>
-              View All
-            </button>
+              <button className="w-[218px] h-[52px] border border-gray-600 bg-black text-white rounded-[62px] flex items-center justify-center text-[15px] font-bold hover:bg-gray-900 hover:text-white mb-12 transition-all duration-300 transform hover:scale-110">
+                View All
+              </button>
             </Link>
           </div>
         </div>
