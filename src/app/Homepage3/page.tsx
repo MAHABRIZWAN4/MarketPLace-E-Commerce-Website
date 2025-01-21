@@ -1,4 +1,3 @@
-
 import React from "react";
 import { FaStarHalf, FaStar } from "react-icons/fa";
 import Image from "next/image";
@@ -7,63 +6,20 @@ import Link from "next/link";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { allproducts, arrival_fourproducts } from "@/sanity/lib/queries";
 
-
-
-
-
-
-
-
-
 type Product = {
-  _id:string,
-  name:string,
-  price:number,
-  description:string,
-  imageUrl:string,
-  discountPercent?:number
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  _id: string;
+  name: string;
+  price: number;
+  description: string;
+  imageUrl: string;
+  discountPercent?: number;
+};
 
 export default async function Homepage3() {
- 
-
-
-
-
-// Sanity 
-const arrivalProducts:Product[] = await sanityFetch({query:arrival_fourproducts}) 
-
-  
-
-
+  // Sanity
+  const arrivalProducts: Product[] = await sanityFetch({
+    query: arrival_fourproducts,
+  });
 
   return (
     <main className="h-auto flex justify-center items-center py-8 px-4 animate-fade-in">
@@ -76,10 +32,13 @@ const arrivalProducts:Product[] = await sanityFetch({query:arrival_fourproducts}
           </h1>
 
           {/* Cards Container */}
-          <div className="w-full mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" >
+          <div className="w-full mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Card */}
             {arrivalProducts.map((item: any, index: any) => (
-              <div key={item._id} className="flex flex-col gap-2 card-container">
+              <div
+                key={item._id}
+                className="flex flex-col gap-2 card-container"
+              >
                 <Link href={`/product/${item._id}`}>
                   <div className="bg-gray-30 flex items-center justify-center rounded-[20px] h-[300px] w-full overflow-hidden card">
                     <Image
@@ -93,74 +52,39 @@ const arrivalProducts:Product[] = await sanityFetch({query:arrival_fourproducts}
                 </Link>
                 <h1 className="font-bold text-[20px] ">{item.name}</h1>
                 <div className="flex justify-between items-center">
-
-
-     
-     
-    
-     
                   <div className="flex gap-1 rating">
-
-
-
-
                     {[...Array(4)].map((_, index) => (
-                      <span key={index} className="text-[#FFC633]"><FaStar className="w-[18.49px] h-[18.49px]"/></span>
+                      <span key={index} className="text-[#FFC633]">
+                        <FaStar className="w-[18.49px] h-[18.49px]" />
+                      </span>
                     ))}
-                      <span key={index} className="text-[#FFC633]"><FaStarHalf className="w-[18.49px] h-[18.49px]"/></span>
-                   
-                    <span className=" text-[14px] font-medium text-black ">4.5/</span>
-                    <span className="text-gray-600 text-[14px] font-medium">5</span>
+                    <span key={index} className="text-[#FFC633]">
+                      <FaStarHalf className="w-[18.49px] h-[18.49px]" />
+                    </span>
 
-                  </div> 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                    <span className=" text-[14px] font-medium text-black ">
+                      4.5/
+                    </span>
+                    <span className="text-gray-600 text-[14px] font-medium">
+                      5
+                    </span>
+                  </div>
                 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-                
                 <div className="flex flex-row gap-4 items-center">
                   <h1 className="text-2xl font-bold">${item.price}</h1>
-                  
-                  
 
-{item.discountPercent > 0 && ( 
-  <h1 className="text-2xl text-gray-500 font-bold line-through">
-    $202 {/* Yahan hardcoded original price */}
-  </h1>
-)} 
+                  {item.discountPercent > 0 && (
+                    <h1 className="text-2xl text-gray-500 font-bold line-through">
+                      $202 {/* Yahan hardcoded original price */}
+                    </h1>
+                  )}
 
-
- {item.discountPercent > 0  && (
-<button className="w-[58px] h-[28px] text-red-700 bg-[#FF33331A] rounded-2xl">
--{item.discountPercent}%
-</button>)}
+                  {item.discountPercent > 0 && (
+                    <button className="w-[58px] h-[28px] text-red-700 bg-[#FF33331A] rounded-2xl">
+                      -{item.discountPercent}%
+                    </button>
+                  )}
                 </div>
               </div>
             ))}

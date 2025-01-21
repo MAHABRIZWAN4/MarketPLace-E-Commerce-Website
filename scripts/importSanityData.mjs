@@ -5,7 +5,7 @@ const client = createClient({
   dataset: 'production',
   useCdn: false,
   apiVersion: '2021-01-13',
- 
+  token:process.env.SANITY_API_TOKEN,
 });
 
 async function uploadImageToSanity(imageUrl) {
