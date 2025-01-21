@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { allproducts } from "@/sanity/lib/queries";
-import { addToCart } from "@/app/(AddToCartFunctunality)/redux/features/cartSlice";
+import { addToCart } from "../../(AddToCartFunctunality)/redux/features/cartSlice";
 import Review from "../Rating-Reviews/page";
 import LikeProducts from "../Like/page";
 
