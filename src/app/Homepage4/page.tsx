@@ -1,4 +1,3 @@
-
 import React from "react";
 import { FaStarHalf, FaStar } from "react-icons/fa";
 import Image from "next/image";
@@ -7,62 +6,18 @@ import Link from "next/link";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { selling_fourproducts } from "@/sanity/lib/queries";
 
-
-
-
-
-
-
 type Product = {
-  _id:string,
-  name:string,
-  price:number,
-  description:string,
-  imageUrl:string,
-  discountPercent?:number
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  _id: string;
+  name: string;
+  price: number;
+  description: string;
+  imageUrl: string;
+  discountPercent?: number;
+};
 
 export default async function Homepage3() {
- 
-
-
-
-
-// Sanity 
-const sellingProducts:Product[] = await sanityFetch({query:selling_fourproducts}) 
-
-
-  
-
-
+  // Sanity 
+  const sellingProducts: Product[] = await sanityFetch({ query: selling_fourproducts });
 
   return (
     <main className="h-auto flex justify-center items-center py-8 px-4 animate-fade-in">
@@ -71,13 +26,13 @@ const sellingProducts:Product[] = await sanityFetch({query:selling_fourproducts}
         <div className="px-4 py-6">
           {/* Heading */}
           <h1 className="flex justify-center text-[48px] sm:text-[40px] lg:text-[48px] font-extrabold animate-zoom-in">
-          TOP SELLING
+            TOP SELLING
           </h1>
 
           {/* Cards Container */}
-          <div className="w-full mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" >
+          <div className="w-full mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Card */}
-            {sellingProducts.map((item: any, index: any) => (
+            {sellingProducts.map((item: Product) => (
               <div key={item._id} className="flex flex-col gap-2 card-container">
                 <Link href={`/product/${item._id}`}>
                   <div className="bg-gray-30 flex items-center justify-center rounded-[20px] h-[300px] w-full overflow-hidden card">
@@ -92,74 +47,31 @@ const sellingProducts:Product[] = await sanityFetch({query:selling_fourproducts}
                 </Link>
                 <h1 className="font-bold text-[20px]">{item.name}</h1>
                 <div className="flex justify-between items-center">
-
-
-     
-     
-    
-     
                   <div className="flex gap-1 rating">
-
-
-
-
                     {[...Array(4)].map((_, index) => (
-                      <span key={index} className="text-[#FFC633]"><FaStar className="w-[18.49px] h-[18.49px]"/></span>
+                      <span key={index} className="text-[#FFC633]">
+                        <FaStar className="w-[18.49px] h-[18.49px]" />
+                      </span>
                     ))}
-                      <span key={index} className="text-[#FFC633]"><FaStarHalf className="w-[18.49px] h-[18.49px]"/></span>
-                   
-                    <span className=" text-[14px] font-medium text-black ">4.5/</span>
+                    <span className="text-[#FFC633]">
+                      <FaStarHalf className="w-[18.49px] h-[18.49px]" />
+                    </span>
+                    <span className="text-[14px] font-medium text-black">4.5/</span>
                     <span className="text-gray-600 text-[14px] font-medium">5</span>
-
-                  </div> 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                  </div>
                 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-                
                 <div className="flex flex-row gap-4 items-center">
                   <h1 className="text-2xl font-bold">${item.price}</h1>
-                  
-                  
-
-{item.discountPercent > 0 && ( 
-  <h1 className="text-2xl text-gray-500 font-bold line-through">
-    $298
-  </h1>
-)} 
-
-
- {item.discountPercent > 0  && (
-<button className="w-[58px] h-[28px] text-red-700 bg-[#FF33331A] rounded-2xl">
--{item.discountPercent}%
-</button>)}
+                  {item.discountPercent && item.discountPercent > 0 && (
+                    <>
+                      <h1 className="text-2xl text-gray-500 font-bold line-through">
+                        $298
+                      </h1>
+                      <button className="w-[58px] h-[28px] text-red-700 bg-[#FF33331A] rounded-2xl">
+                        -{item.discountPercent}%
+                      </button>
+                    </>
+                  )}
                 </div>
               </div>
             ))}

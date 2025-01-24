@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import { IoSearchOutline } from "react-icons/io5";
 import { CiHeart } from "react-icons/ci";
@@ -16,24 +16,24 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-
+} from "@/components/ui/dropdown-menu";
 
 import Link from "next/link";
 
+// Define the type of the Redux state (adjust as per your state structure)
+interface RootState {
+  cart: { length: number }[];
+}
+
 function Navbar() {
-
-
-    let cartItems = useSelector((state: any) => state.cart);
-  
+  // Use `const` for cartItems and specify its type
+  const cartItems = useSelector((state: RootState) => state.cart);
 
   return (
     <div>
@@ -52,18 +52,12 @@ function Navbar() {
                 </SheetHeader>
                 <ul className="flex flex-col gap-10 mt-14">
                   <li>
-                  <Link
-              href="/"
-              className="  gap-1 hover:text-gray-900 hover:cursor-pointer hover:underline"
-            >
-              Shop
-            
-
-
-
-            </Link>
-
-
+                    <Link
+                      href="/"
+                      className="gap-1 hover:text-gray-900 hover:cursor-pointer hover:underline"
+                    >
+                      Shop
+                    </Link>
                   </li>
                   <li>
                     <Link
@@ -74,26 +68,26 @@ function Navbar() {
                     </Link>
                   </li>
                   <li>
-                  <Link
-              href="/Homepage3"
-              className="mr-5 hover:text-gray-900 hover:cursor-pointer hover:underline"
-            >
-              New Arrival
-            </Link>
+                    <Link
+                      href="/Homepage3"
+                      className="mr-5 hover:text-gray-900 hover:cursor-pointer hover:underline"
+                    >
+                      New Arrival
+                    </Link>
                   </li>
                   <li>
-                  <Link
-              href="/category"
-              className="mr-5 hover:text-gray-900 hover:cursor-pointer hover:underline"
-            >
-              Brands
-            </Link>
+                    <Link
+                      href="/category"
+                      className="mr-5 hover:text-gray-900 hover:cursor-pointer hover:underline"
+                    >
+                      Brands
+                    </Link>
                   </li>
                 </ul>
               </SheetContent>
             </Sheet>
           </div>
-          <h1 className="text-[28px] lg:text-[35px] sm:text-[35px] ml-6 sm:text-center font-extrabold ">
+          <h1 className="text-[28px] lg:text-[35px] sm:text-[35px] ml-6 sm:text-center font-extrabold">
             Shop.Co
           </h1>
           {/* Navigation for Larger Screens */}
@@ -103,19 +97,18 @@ function Navbar() {
               className="mr-5 flex items-center justify-center gap-1 hover:text-gray-900 hover:cursor-pointer hover:underline"
             >
               Shop
-
- 
               <DropdownMenu>
-  <DropdownMenuTrigger><MdKeyboardArrowDown /></DropdownMenuTrigger>
-  <DropdownMenuContent>
-    
-    <DropdownMenuSeparator />
-    <DropdownMenuItem><Link href="/category">Category</Link></DropdownMenuItem>
-    <DropdownMenuItem>Billing</DropdownMenuItem>
-  </DropdownMenuContent>
-</DropdownMenu>
-
-
+                <DropdownMenuTrigger>
+                  <MdKeyboardArrowDown />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <Link href="/category">Category</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>Billing</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </Link>
             <Link
               href="/Homepage4"
@@ -144,18 +137,17 @@ function Navbar() {
               placeholder="Search for products..."
               className="hidden md:block md:w-[300px] w-[500] lg:w-[300px] h-[38px] rounded-[50px] bg-[#F5F5F5] placeholder:pl-11"
             />
-            <div className="flex gap-1 ml-4 ">
-<Link href="/cart">             
-<button className="relative text-[25px]" >
-    <  MdOutlineShoppingCart  />
-
-    {cartItems.length > 0 && (
-    <span className="absolute text-[12px] top-0 right-[-5px] bg-red-500 w-[18px] h-[15px] rounded-3xl  text-center text-white font-bold">{cartItems.length}</span>
-
-    ) }
-
-   
-    </button></Link>
+            <div className="flex gap-1 ml-4">
+              <Link href="/cart">
+                <button className="relative text-[25px]">
+                  <MdOutlineShoppingCart />
+                  {cartItems.length > 0 && (
+                    <span className="absolute text-[12px] top-0 right-[-5px] bg-red-500 w-[18px] h-[15px] rounded-3xl text-center text-white font-bold">
+                      {cartItems.length}
+                    </span>
+                  )}
+                </button>
+              </Link>
 
               <CiHeart className="w-[22.13px] h-[20.25px]" />
             </div>
@@ -165,4 +157,5 @@ function Navbar() {
     </div>
   );
 }
+
 export default Navbar;

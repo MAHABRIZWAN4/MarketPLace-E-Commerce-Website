@@ -1,10 +1,9 @@
-import React from "react";
-import { FaStarHalf, FaStar } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
 
 import { sanityFetch } from "@/sanity/lib/fetch";
-import { allproducts, arrival_fourproducts } from "@/sanity/lib/queries";
+import { arrival_fourproducts } from "@/sanity/lib/queries";
+import { FaStar, FaStarHalf } from "react-icons/fa";
 
 type Product = {
   _id: string;
@@ -34,7 +33,7 @@ export default async function Homepage3() {
           {/* Cards Container */}
           <div className="w-full mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Card */}
-            {arrivalProducts.map((item: any, index: any) => (
+            {arrivalProducts.map((item: Product, index: number) => (
               <div
                 key={item._id}
                 className="flex flex-col gap-2 card-container"
@@ -58,7 +57,7 @@ export default async function Homepage3() {
                         <FaStar className="w-[18.49px] h-[18.49px]" />
                       </span>
                     ))}
-                    <span key={index} className="text-[#FFC633]">
+                    <span className="text-[#FFC633]">
                       <FaStarHalf className="w-[18.49px] h-[18.49px]" />
                     </span>
 
@@ -74,13 +73,13 @@ export default async function Homepage3() {
                 <div className="flex flex-row gap-4 items-center">
                   <h1 className="text-2xl font-bold">${item.price}</h1>
 
-                  {item.discountPercent > 0 && (
+                  {item.discountPercent && item.discountPercent > 0 && (
                     <h1 className="text-2xl text-gray-500 font-bold line-through">
                       $202 {/* Yahan hardcoded original price */}
                     </h1>
                   )}
 
-                  {item.discountPercent > 0 && (
+                  {item.discountPercent && item.discountPercent > 0 && (
                     <button className="w-[58px] h-[28px] text-red-700 bg-[#FF33331A] rounded-2xl">
                       -{item.discountPercent}%
                     </button>

@@ -4,13 +4,10 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Image from "next/image";
-// import { remove, incrementQuantity, decrementQuantity } from "@/app/(AddToCartFunctunality)/redux/features/cartSlice";
-// import { remove, incrementQuantity, decrementQuantity } from "../../(AddToCartFunctunality)/redux/features/cartSlice";
-// import { remove, incrementQuantity, decrementQuantity } from "@/app/(AddToCartFunctunality)/redux/features/cartSlice";
 
 
 import Link from "next/link";
-// import { RootState } from "../redux/store";
+
 import { RootState } from "../redux/store";
 import { decrementQuantity, incrementQuantity, remove } from "../redux/features/cartSlice";
 
@@ -115,6 +112,8 @@ const Cartpage: React.FC = () => {
               </div>
             </div>
           ))}
+
+
         </div>
 
         {/* Order Summary */}
