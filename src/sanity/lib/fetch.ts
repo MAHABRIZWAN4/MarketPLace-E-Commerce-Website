@@ -7,6 +7,14 @@ const client = createClient({
     apiVersion: '2023-10-10',
   });
 
-export async function sanityFetch({query, params = {}}:{query:string, params?:any}){
-    return await client.fetch(query, params)
-}
+
+  type SanityParams = {
+    id?: string;
+    slug?: string;
+    [key: string]: any; // If you have other dynamic fields, you can use this
+  };
+  
+  export async function sanityFetch({ query, params = {} }: { query: string; params?: SanityParams }) {
+    return await client.fetch(query, params);
+  }
+  

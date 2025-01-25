@@ -1,6 +1,5 @@
-import { FaStar, FaStarHalf } from "react-icons/fa";
 
-export let products = [
+export const products = [
   {
     id: 1,
     src: "/image7.png",

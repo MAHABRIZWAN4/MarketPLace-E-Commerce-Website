@@ -21,18 +21,14 @@ type Product = {
   imageUrl: string;
 };
 
-
 export default function Post() {
   const params = useParams();
   const dispatch = useDispatch(); // For dispatching Redux actions
-  const [products, setProducts] = useState<Product[]>([]);
   const [post, setPost] = useState<Product | null>(null);
 
- 
   useEffect(() => {
     const fetchProducts = async () => {
       const fetchedProducts: Product[] = await sanityFetch({ query: allproducts });
-      setProducts(fetchedProducts);
 
       // Find product based on the route parameter
       const product = fetchedProducts.find((p) => p._id === params?.id);
@@ -71,88 +67,81 @@ export default function Post() {
 
   return (
     <main>
-    <div className="max-w-5xl mx-auto mt-11">
-      <div className="flex flex-col md:flex-row items-center gap-10 lg:gap-20 justify-between">
-        {/* Product Image Section */}
-        {post.imageUrl && (
-          <div className="w-full max-w-[300px] sm:max-w-[400px] md:max-w-[500px] h-auto bg-[#F2F0F1]  md:h-[700px] flex items-center justify-center  rounded-lg">
-            <Image          
-              src={post.imageUrl}
-              alt={post.name}
-              width={500}
-              height={600}
-              // className="w-full h-auto rounded-md md:h-[700px]"
-            />
-          </div>
-        )}
-
-        {/* Product Details Section */}
-        <div className="mt-6 text-lg text-slate-700 w-full max-w-[600px]">
-          <h1 className="text-2xl sm:text-3xl md:text-[32px] lg:text-[40px] font-extrabold text-black">
-            {post.name}
-          </h1>
-
-          {/* Rating */}
-          <div className="grid grid-cols-4 gap-2 mt-4">
-            <div className="flex items-center">
-              <FaStar className="text-yellow-400" />
-              <FaStar className="text-yellow-400" />
-              <FaStar className="text-yellow-400" />
-              <FaStar className="text-yellow-400" />
-              <FaStarHalf className="text-yellow-400" />
-
-              4.5/5
+      <div className="max-w-5xl mx-auto mt-11">
+        <div className="flex flex-col md:flex-row items-center gap-10 lg:gap-20 justify-between">
+          {/* Product Image Section */}
+          {post.imageUrl && (
+            <div className="w-full max-w-[300px] sm:max-w-[400px] md:max-w-[500px] h-auto bg-[#F2F0F1]  md:h-[700px] flex items-center justify-center  rounded-lg">
+              <Image          
+                src={post.imageUrl}
+                alt={post.name}
+                width={500}
+                height={600}
+              />
             </div>
+          )}
 
-          </div>
-          {/* Price */}
-          <p className="font-bold text-black text-3xl">${post.price}</p>
-          {/* Description */}
-          <div className="mt-4 text-base md:text-lg">{renderParagraphs(post.description)}</div>
+          {/* Product Details Section */}
+          <div className="mt-6 text-lg text-slate-700 w-full max-w-[600px]">
+            <h1 className="text-2xl sm:text-3xl md:text-[32px] lg:text-[40px] font-extrabold text-black">
+              {post.name}
+            </h1>
 
-          {/* Select Colors */}
-          <h1 className="text-sm mt-8">Select Colors</h1>
-          <div className="flex gap-4 items-center mt-4">
-            <div className="h-9 w-9 bg-[#4F4631] border-2 rounded-full flex items-center justify-center text-white">
-              <Check />
-            </div>
-            <div className="h-9 w-9 bg-[#314F4A] rounded-full"></div>
-            <div className="h-9 w-9 bg-[#31344F] rounded-full"></div>
-          </div>
-
-          {/* Choose Size */}
-          <h1 className="text-sm mt-6">Choose Size</h1>
-          <div className="flex gap-4 items-center mt-4">
-            {["Small", "Medium", "Large", "X-Large"].map((size) => (
-              <div
-                key={size}
-                className="h-12 w-20 flex items-center justify-center bg-[#F0F0F0] rounded-full text-sm font-medium hover:bg-black hover:text-white cursor-pointer"
-              >
-                {size}
+            {/* Rating */}
+            <div className="grid grid-cols-4 gap-2 mt-4">
+              <div className="flex items-center">
+                <FaStar className="text-yellow-400" />
+                <FaStar className="text-yellow-400" />
+                <FaStar className="text-yellow-400" />
+                <FaStar className="text-yellow-400" />
+                <FaStarHalf className="text-yellow-400" />
+                4.5/5
               </div>
-            ))}
+            </div>
+
+            {/* Price */}
+            <p className="font-bold text-black text-3xl">${post.price}</p>
+
+            {/* Description */}
+            <div className="mt-4 text-base md:text-lg">{renderParagraphs(post.description)}</div>
+
+            {/* Select Colors */}
+            <h1 className="text-sm mt-8">Select Colors</h1>
+            <div className="flex gap-4 items-center mt-4">
+              <div className="h-9 w-9 bg-[#4F4631] border-2 rounded-full flex items-center justify-center text-white">
+                <Check />
+              </div>
+              <div className="h-9 w-9 bg-[#314F4A] rounded-full"></div>
+              <div className="h-9 w-9 bg-[#31344F] rounded-full"></div>
+            </div>
+
+            {/* Choose Size */}
+            <h1 className="text-sm mt-6">Choose Size</h1>
+            <div className="flex gap-4 items-center mt-4">
+              {["Small", "Medium", "Large", "X-Large"].map((size) => (
+                <div
+                  key={size}
+                  className="h-12 w-20 flex items-center justify-center bg-[#F0F0F0] rounded-full text-sm font-medium hover:bg-black hover:text-white cursor-pointer"
+                >
+                  {size}
+                </div>
+              ))}
+            </div>
+
+            {/* Add to Cart Button */}
+            <button
+              onClick={handleAddToCart}
+              className="px-4 py-2 mt-6 bg-black text-white rounded-[50px] md:w-[300px] hover:bg-gray-800 transition"
+            >
+              Add to Cart
+            </button>
           </div>
-
-          {/* Add to Cart Button */}
-          <button
-            onClick={handleAddToCart}
-            className="px-4 py-2 mt-6 bg-black text-white rounded-[50px] md:w-[300px] hover:bg-gray-800 transition"
-          >
-            Add to Cart
-          </button>
         </div>
+
+        {/* Review */}
+        <div><Review /></div>
+        <div><LikeProducts /></div>
       </div>
- 
-
-{/* Reivew */}
-<div><Review/></div>
-<div><LikeProducts/></div>
-
- </div>
-
-
-
-
-     </main>
+    </main>
   );
 }

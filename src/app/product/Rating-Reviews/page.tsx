@@ -124,29 +124,36 @@ export default function Review() {
       </div>
 
       <section className="mt-5 grid md:grid-cols-2 md:grid-rows-3 gap-5">
-        {data.map((item, index) => {
-          return (
-            <div
-              key={index}
-              className="bg-[#0000001A] w-auto h-auto xl:w-[500px] xl:h-[241.58px] rounded-[20px] border-[1px] py-[28px] px-[32px] flex flex-col gap-3"
-            >
-              <span className="flex flex-row gap-2">{item.star}</span>
-              <h1 className="flex flex-row gap-2 text-[20px] font-bold">
-                {item.heading}
-                <span className="text-[#01AB31] flex items-center justify-center">
-                  {item.check}
-                </span>
-              </h1>
-              <p className="text-[#00000099] font-normal text-[16px]">
-                {item.paragraph}
-              </p>
-              <p className="text-[#00000099] font-medium text-[16px]">
-                {item.posted}
-              </p>
-            </div>
-          );
-        })}
-      </section>
+  {data.map((item, index) => {
+    return (
+      <div
+        key={index}  // Add key for each review card
+        className="bg-[#0000001A] w-auto h-auto xl:w-[500px] xl:h-[241.58px] rounded-[20px] border-[1px] py-[28px] px-[32px] flex flex-col gap-3"
+      >
+        <span className="flex flex-row gap-2">
+          {item.star.map((star, starIndex) => (
+            <React.Fragment key={starIndex}>{star}</React.Fragment> // Add key for each star
+          ))}
+        </span>
+        <h1 className="flex flex-row gap-2 text-[20px] font-bold">
+          {item.heading}
+          <span className="text-[#01AB31] flex items-center justify-center">
+            {item.check.map((check, checkIndex) => (
+              <React.Fragment key={checkIndex}>{check}</React.Fragment> // Add key for each check circle
+            ))}
+          </span>
+        </h1>
+        <p className="text-[#00000099] font-normal text-[16px]">
+          {item.paragraph}
+        </p>
+        <p className="text-[#00000099] font-medium text-[16px]">
+          {item.posted}
+        </p>
+      </div>
+    );
+  })}
+</section>
+
 
       <div className="flex justify-center mt-8">
         <button className="w-[230px] h-[52px] text-[#000000] font-medium text-[16px] bg-[#0000001A] rounded-[62px] hover:bg-[#250b0b1f]">
