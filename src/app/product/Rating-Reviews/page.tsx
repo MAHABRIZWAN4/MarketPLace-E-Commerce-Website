@@ -123,23 +123,25 @@ export default function Review() {
         </div>
       </div>
 
+    
+    
       <section className="mt-5 grid md:grid-cols-2 md:grid-rows-3 gap-5">
   {data.map((item, index) => {
     return (
       <div
-        key={index}  // Add key for each review card
+        key={index} // Unique key for each review card
         className="bg-[#0000001A] w-auto h-auto xl:w-[500px] xl:h-[241.58px] rounded-[20px] border-[1px] py-[28px] px-[32px] flex flex-col gap-3"
       >
         <span className="flex flex-row gap-2">
           {item.star.map((star, starIndex) => (
-            <React.Fragment key={starIndex}>{star}</React.Fragment> // Add key for each star
+            <React.Fragment key={`star-${index}-${starIndex}`}>{star}</React.Fragment>
           ))}
         </span>
         <h1 className="flex flex-row gap-2 text-[20px] font-bold">
           {item.heading}
           <span className="text-[#01AB31] flex items-center justify-center">
             {item.check.map((check, checkIndex) => (
-              <React.Fragment key={checkIndex}>{check}</React.Fragment> // Add key for each check circle
+              <React.Fragment key={`check-${index}-${checkIndex}`}>{check}</React.Fragment>
             ))}
           </span>
         </h1>
