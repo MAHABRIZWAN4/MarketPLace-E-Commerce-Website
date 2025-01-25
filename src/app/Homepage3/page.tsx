@@ -33,7 +33,8 @@ export default async function Homepage3() {
           {/* Cards Container */}
           <div className="w-full mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Card */}
-            {arrivalProducts.map((item: Product, index: number) => (
+            {arrivalProducts.map((item: Product) => (
+
               <div
                 key={item._id}
                 className="flex flex-col gap-2 card-container"

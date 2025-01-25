@@ -1,21 +1,19 @@
 import React from "react";
-
 import { FaStar, FaCheckCircle, FaStarHalf } from "react-icons/fa";
 import Image from "next/image";
 
 // Dummy Data
 
-interface dataType{
-    star:any,
-    check: any,
-    heading: string,
-    paragraph:string,
-    posted:string
-   }
+interface dataType {
+  star: React.ReactNode[];
+  check: React.ReactNode[];
+  heading: string;
+  paragraph: string;
+  posted: string;
+}
 
-
-let data:dataType[] = [
-   {
+const data: dataType[] = [
+  {
     star: [
       <FaStar color="orange" size={20} />,
       <FaStar color="orange" size={20} />,
@@ -27,9 +25,9 @@ let data:dataType[] = [
     heading: "Samantha D.",
     paragraph:
       "I absolutely love this t-shirt! The design is unique and the fabric feels so comfortable. As a fellow designer, I appreciate the attention to detail. It's become my favorite go-to shirt.",
-    posted:"Posted on August 14, 2023"
-   },
-   {
+    posted: "Posted on August 14, 2023",
+  },
+  {
     star: [
       <FaStar color="orange" size={20} />,
       <FaStar color="orange" size={20} />,
@@ -40,9 +38,9 @@ let data:dataType[] = [
     heading: "Alex M.",
     paragraph:
       "The t-shirt exceeded my expectations! The colors are vibrant and the print quality is top-notch. Being a UI/UX designer myself, I'm quite picky about aesthetics, and this t-shirt definitely gets a thumbs up from me.",
-    posted:"Posted on August 15, 2023"
-   },
-   {
+    posted: "Posted on August 15, 2023",
+  },
+  {
     star: [
       <FaStar color="orange" size={20} />,
       <FaStar color="orange" size={20} />,
@@ -53,9 +51,9 @@ let data:dataType[] = [
     heading: "Ethan R.",
     paragraph:
       "This t-shirt is a must-have for anyone who appreciates good design. The minimalistic yet stylish pattern caught my eye, and the fit is perfect. I can see the designer's touch in every aspect of this shirt.",
-    posted:"Posted on August 16, 2023"
-   },
-   {
+    posted: "Posted on August 16, 2023",
+  },
+  {
     star: [
       <FaStar color="orange" size={20} />,
       <FaStar color="orange" size={20} />,
@@ -66,9 +64,9 @@ let data:dataType[] = [
     heading: "Olivia P.",
     paragraph:
       "As a UI/UX enthusiast, I value simplicity and functionality. This t-shirt not only represents those principles but also feels great to wear. It's evident that the designer poured their creativity into making this t-shirt stand out.",
-    posted:"Posted on August 17, 2023"
-   },
-   {
+    posted: "Posted on August 17, 2023",
+  },
+  {
     star: [
       <FaStar color="orange" size={20} />,
       <FaStar color="orange" size={20} />,
@@ -78,10 +76,10 @@ let data:dataType[] = [
     check: [<FaCheckCircle />],
     heading: "Liam K.",
     paragraph:
-     "This t-shirt is a fusion of comfort and creativity. The fabric is soft, and the design speaks volumes about the designer's skill. It's like wearing a piece of art that reflects my passion for both design and fashion.",
-    posted:"Posted on August 18, 2023"
-   },
-   {
+      "This t-shirt is a fusion of comfort and creativity. The fabric is soft, and the design speaks volumes about the designer's skill. It's like wearing a piece of art that reflects my passion for both design and fashion.",
+    posted: "Posted on August 18, 2023",
+  },
+  {
     star: [
       <FaStar color="orange" size={20} />,
       <FaStar color="orange" size={20} />,
@@ -93,17 +91,17 @@ let data:dataType[] = [
     heading: "Ava H.",
     paragraph:
       "I'm not just wearing a t-shirt; I'm wearing a piece of design philosophy. The intricate details and thoughtful layout of the design make this shirt a conversation starter.",
-    posted:"Posted on August 19, 2023"
-   },
+    posted: "Posted on August 19, 2023",
+  },
 ];
 
 export default function Review() {
   return (
-    <main className="mx-4 max-w-[1210px]  ">
-      <div className=" mt-10   flex flex-col ">
+    <main className="mx-4 max-w-[1210px]">
+      <div className="mt-10 flex flex-col">
         {/* heading div */}
 
-        <div className="flex flex-col sm:flex-row justify-between items-center ">
+        <div className="flex flex-col sm:flex-row justify-between items-center">
           <h1 className="text-[24px] sm:text-[38px] font-bold text-center sm:text-left">
             All Reviews{" "}
             <span className="text-[16px] font-medium text-[#00000099]">
@@ -113,12 +111,7 @@ export default function Review() {
 
           <div className="flex gap-4 mt-4 sm:mt-0 ">
             <button className="w-[48px] h-[48px] rounded-[62px] bg-[#F0F0F0] flex justify-center items-center hover:bg-[#250b0b1f]">
-              <Image
-                src="/image36.png"
-                alt="image"
-                width={30}
-                height={30}
-              ></Image>
+              <Image src="/image36.png" alt="image" width={30} height={30} />
             </button>
             <button className="w-[120px] h-[48px] rounded-[62px] bg-[#F0F0F0] hover:bg-[#250b0b1f]">
               Latest
@@ -130,24 +123,36 @@ export default function Review() {
         </div>
       </div>
 
-      <section className="mt-5 grid md:grid-cols-2 md:grid-rows-3   gap-5">
-        {data.map((item,index):any => {
-            return(
-              <div className="bg-[#0000001A]  w-auto h-auto  xl:w-[500px] xl:h-[241.58px] rounded-[20px] border-[1px] py-[28px] px-[32px] flex  flex-col gap-3">
+      <section className="mt-5 grid md:grid-cols-2 md:grid-rows-3 gap-5">
+        {data.map((item, index) => {
+          return (
+            <div
+              key={index}
+              className="bg-[#0000001A] w-auto h-auto xl:w-[500px] xl:h-[241.58px] rounded-[20px] border-[1px] py-[28px] px-[32px] flex flex-col gap-3"
+            >
               <span className="flex flex-row gap-2">{item.star}</span>
-              <h1 className="flex flex-row gap-2 text-[20px] font-bold">{item.heading}<span className="text-[#01AB31] flex items-center justify-center">{item.check}</span></h1>
-              <p className="text-[#00000099 font-normal text-[16px]">{item.paragraph}</p>
-              <p className="text-[#00000099] font-medium text-[16px]">{item.posted}</p>
-              </div>
-            )
+              <h1 className="flex flex-row gap-2 text-[20px] font-bold">
+                {item.heading}
+                <span className="text-[#01AB31] flex items-center justify-center">
+                  {item.check}
+                </span>
+              </h1>
+              <p className="text-[#00000099] font-normal text-[16px]">
+                {item.paragraph}
+              </p>
+              <p className="text-[#00000099] font-medium text-[16px]">
+                {item.posted}
+              </p>
+            </div>
+          );
         })}
-
-
       </section>
-      
-<div className="flex justify-center mt-8">
-        <button className="w-[230px] h-[52px] text-[#000000] font-medium text-[16px] bg-[#0000001A] rounded-[62px] hover:bg-[#250b0b1f]">Load More Reviews</button>
-        </div>
+
+      <div className="flex justify-center mt-8">
+        <button className="w-[230px] h-[52px] text-[#000000] font-medium text-[16px] bg-[#0000001A] rounded-[62px] hover:bg-[#250b0b1f]">
+          Load More Reviews
+        </button>
+      </div>
     </main>
   );
 }
