@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import Home from './Homepage1/page';
 import HomePage2 from './Homepage2/page';
