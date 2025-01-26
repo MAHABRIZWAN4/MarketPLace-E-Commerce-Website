@@ -131,18 +131,19 @@ export default function Review() {
       className="bg-[#0000001A] w-auto h-auto xl:w-[500px] xl:h-[241.58px] rounded-[20px] border-[1px] py-[28px] px-[32px] flex flex-col gap-3"
     >
       <span className="flex flex-row gap-2">
-        {item.star.map((star, starIndex) => (
-          <React.Fragment key={`star-${index}-${starIndex}`}>{star}</React.Fragment>
-        ))}
-      </span>
-      <h1 className="flex flex-row gap-2 text-[20px] font-bold">
-        {item.heading}
-        <span className="text-[#01AB31] flex items-center justify-center">
-          {item.check.map((check, checkIndex) => (
-            <React.Fragment key={`check-${index}-${checkIndex}`}>{check}</React.Fragment>
-          ))}
-        </span>
-      </h1>
+  {item.star.map((star, starIndex) => (
+    <React.Fragment key={`star-${index}-${starIndex}`}>{star}</React.Fragment>
+  ))}
+</span>
+<h1 className="flex flex-row gap-2 text-[20px] font-bold">
+  {item.heading}
+  <span className="text-[#01AB31] flex items-center justify-center">
+    {item.check.map((check, checkIndex) => (
+      <React.Fragment key={`check-${index}-${checkIndex}`}>{check}</React.Fragment>
+    ))}
+  </span>
+</h1>
+
       <p className="text-[#00000099] font-normal text-[16px]">
         {item.paragraph}
       </p>
