@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaStarHalf, FaStar } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
-
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { selling_fourproducts } from "@/sanity/lib/queries";
 
@@ -15,9 +14,16 @@ type Product = {
   discountPercent?: number;
 };
 
-export default async function Homepage3() {
-  // Sanity 
-  const sellingProducts: Product[] = await sanityFetch({ query: selling_fourproducts });
+export default function Homepage4() {
+  const [sellingProducts, setSellingProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const products: Product[] = await sanityFetch({ query: selling_fourproducts });
+      setSellingProducts(products);
+    };
+    fetchProducts();
+  }, []);
 
   return (
     <main className="h-auto flex justify-center items-center py-8 px-4 animate-fade-in">
@@ -28,7 +34,6 @@ export default async function Homepage3() {
           <h1 className="flex justify-center text-[48px] sm:text-[40px] lg:text-[48px] font-extrabold animate-zoom-in">
             TOP SELLING
           </h1>
-
           {/* Cards Container */}
           <div className="w-full mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Card */}
@@ -76,7 +81,6 @@ export default async function Homepage3() {
               </div>
             ))}
           </div>
-
           {/* View All Button */}
           <div className="flex justify-center mt-12">
             <Link href="/category">
@@ -90,3 +94,4 @@ export default async function Homepage3() {
     </main>
   );
 }
+
