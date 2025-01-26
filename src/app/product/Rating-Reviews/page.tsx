@@ -3,7 +3,6 @@ import { FaStar, FaCheckCircle, FaStarHalf } from "react-icons/fa";
 import Image from "next/image";
 
 // Dummy Data
-
 interface dataType {
   star: React.ReactNode[];
   check: React.ReactNode[];
@@ -27,6 +26,7 @@ const data: dataType[] = [
       "I absolutely love this t-shirt! The design is unique and the fabric feels so comfortable. As a fellow designer, I appreciate the attention to detail. It's become my favorite go-to shirt.",
     posted: "Posted on August 14, 2023",
   },
+ 
   {
     star: [
       <FaStar color="orange" size={20} />,
@@ -93,14 +93,13 @@ const data: dataType[] = [
       "I'm not just wearing a t-shirt; I'm wearing a piece of design philosophy. The intricate details and thoughtful layout of the design make this shirt a conversation starter.",
     posted: "Posted on August 19, 2023",
   },
+
 ];
 
 export default function Review() {
   return (
     <main className="mx-4 max-w-[1210px]">
       <div className="mt-10 flex flex-col">
-        {/* heading div */}
-
         <div className="flex flex-col sm:flex-row justify-between items-center">
           <h1 className="text-[24px] sm:text-[38px] font-bold text-center sm:text-left">
             All Reviews{" "}
@@ -116,46 +115,46 @@ export default function Review() {
             <button className="w-[120px] h-[48px] rounded-[62px] bg-[#F0F0F0] hover:bg-[#250b0b1f]">
               Latest
             </button>
-            <button className="w-[110px] text-[14px] sm:text-[16px] sm:w-[166px] h-[48px] rounded-[62px] bg-black hover:bg-[#111111e7]  text-white">
+            <button className="w-[110px] text-[14px] sm:text-[16px] sm:w-[166px] h-[48px] rounded-[62px] bg-black hover:bg-[#111111e7] text-white">
               Write a Review
             </button>
           </div>
         </div>
       </div>
 
-    
       <section className="mt-5 grid md:grid-cols-2 md:grid-rows-3 gap-5">
-  {data.map((item, index) => (
-    <div
-      key={`review-${index}`} // Unique key for each review card
-      className="bg-[#0000001A] w-auto h-auto xl:w-[500px] xl:h-[241.58px] rounded-[20px] border-[1px] py-[28px] px-[32px] flex flex-col gap-3"
-    >
-      <span className="flex flex-row gap-2">
-  {item.star.map((star, starIndex) => (
-    <React.Fragment key={`star-${index}-${starIndex}`}>{star}</React.Fragment>
-  ))}
-</span>
-<h1 className="flex flex-row gap-2 text-[20px] font-bold">
-  {item.heading}
-  <span className="text-[#01AB31] flex items-center justify-center">
-    {item.check.map((check, checkIndex) => (
-      <React.Fragment key={`check-${index}-${checkIndex}`}>{check}</React.Fragment>
-    ))}
-  </span>
-</h1>
+        {data.map((item, index) => (
+          <div
+            key={`review-${index}`}
+            className="bg-[#0000001A] w-auto h-auto xl:w-[500px] xl:h-[241.58px] rounded-[20px] border-[1px] py-[28px] px-[32px] flex flex-col gap-3"
+          >
+            <span className="flex flex-row gap-2">
+              {item.star.map((star, starIndex) => (
+                <React.Fragment key={`star-${index}-${starIndex}`}>
+                  {star}
+                </React.Fragment>
+              ))}
+            </span>
+            <h1 className="flex flex-row gap-2 text-[20px] font-bold">
+              {item.heading}
+              <span className="text-[#01AB31] flex items-center justify-center">
+                {item.check.map((check, checkIndex) => (
+                  <React.Fragment key={`check-${index}-${checkIndex}`}>
+                    {check}
+                  </React.Fragment>
+                ))}
+              </span>
+            </h1>
 
-      <p className="text-[#00000099] font-normal text-[16px]">
-        {item.paragraph}
-      </p>
-      <p className="text-[#00000099] font-medium text-[16px]">
-        {item.posted}
-      </p>
-    </div>
-  ))}
-</section>
-
-
-
+            <p className="text-[#00000099] font-normal text-[16px]">
+              {item.paragraph}
+            </p>
+            <p className="text-[#00000099] font-medium text-[16px]">
+              {item.posted}
+            </p>
+          </div>
+        ))}
+      </section>
 
       <div className="flex justify-center mt-8">
         <button className="w-[230px] h-[52px] text-[#000000] font-medium text-[16px] bg-[#0000001A] rounded-[62px] hover:bg-[#250b0b1f]">
