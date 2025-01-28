@@ -22,6 +22,7 @@ type Product = {
   tags: string[];
   discountPercent?: number;
   colors: string[];
+  sizes: string[];
 };
 
 export default function Post() {
@@ -146,7 +147,9 @@ export default function Post() {
             {/* Choose Size */}
             <h1 className="text-sm mt-6">Choose Size</h1>
             <div className="flex gap-4 items-center mt-4">
-              {["Small", "Medium", "Large", "X-Large"].map((size) => (
+              
+            {post.sizes.map((size , index) => (
+              
                 <div
                   key={size}
                   className={`h-12 w-20 flex items-center justify-center bg-[#F0F0F0] rounded-full text-sm font-medium hover:bg-black hover:text-white cursor-pointer ${selectedSize === size ? 'bg-black text-white' : ''}`}

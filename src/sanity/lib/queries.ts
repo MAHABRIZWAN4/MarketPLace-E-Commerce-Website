@@ -33,7 +33,8 @@ export const arrival_fourproducts = defineQuery(`
     sizes,
     "imageUrl": image.asset->url,
     tags,
-    colors
+    colors,
+    sizes
     }
 `)
 
@@ -52,7 +53,8 @@ export const selling_fourproducts = defineQuery(`
     sizes,
     "imageUrl": image.asset->url,
     tags,
-    colors
+    colors,
+    sizes
     }
 `)
 
@@ -74,6 +76,7 @@ export const like_fourproducts = defineQuery(`
     sizes,
     "imageUrl": image.asset->url,
     tags,
-    colors
+    colors,
+    sizes
     }
 `)
