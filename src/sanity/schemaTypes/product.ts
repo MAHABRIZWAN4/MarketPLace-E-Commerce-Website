@@ -61,5 +61,20 @@ export default defineType({
       type: "array",
       of: [{ type: "string" }],
     },
+    {
+      name: "tags",
+      title: "Tags",
+      type: "array",
+      of: [{ type: "string" }],
+      options: {
+        layout: "tags", // Isse tags ke liye UI friendly ban jata hai
+      },
+    }
   ],
 });
+
+
+
+
+
+

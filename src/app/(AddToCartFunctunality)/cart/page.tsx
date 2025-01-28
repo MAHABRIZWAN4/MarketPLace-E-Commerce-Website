@@ -4,8 +4,6 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Image from "next/image";
-
-
 import Link from "next/link";
 
 import { RootState } from "../redux/store";
@@ -17,11 +15,14 @@ interface CartItem {
   price: number;
   imageUrl: string;
   quantity: number;
+  color?: string;
+  size?: string;
+  discountPercent?: number;
 }
 
 const Cartpage: React.FC = () => {
   const dispatch = useDispatch();
-  const cartItems = useSelector((state: RootState) => state.cart);
+  const cartItems: CartItem[] = useSelector((state: RootState) => state.cart);
 
   const handleRemove = (id: number) => {
     dispatch(remove(id));
@@ -39,7 +40,10 @@ const Cartpage: React.FC = () => {
     (total, item) => total + item.price * item.quantity,
     0
   );
-  const discount = subtotal * 0.2; // 20% discount
+  const discount = cartItems.reduce(
+    (total, item) => total + (item.discountPercent ? item.price * item.quantity * (item.discountPercent / 100) : 0),
+    0
+  );
   const deliveryFee = 15; // Fixed delivery fee
   const total = subtotal - discount + deliveryFee;
 
@@ -47,9 +51,9 @@ const Cartpage: React.FC = () => {
     <div className="min-h-screen bg-gray-50 py-8 px-4 flex flex-col items-center">
       {/* Breadcrumb */}
       <div className="flex gap-4 text-sm text-gray-500 mb-4 w-full max-w-6xl">
-        <Link href="/"> <span>   Home</span>   </Link>
+        <Link href="/"> <span>Home</span> </Link>
         <span>/</span>
-      <span> Cart</span>
+        <span>Cart</span>
       </div>
 
       {/* Page Title */}
@@ -79,11 +83,23 @@ const Cartpage: React.FC = () => {
                 <h5 className="text-lg font-semibold text-gray-800">
                   {item.title}
                 </h5>
-                <p className="text-sm text-gray-600">Size: Large</p>
-                <p className="text-sm text-gray-600">Color: Blue</p>
-                <h5 className="text-lg font-medium text-gray-800 mt-2">
-                  ${item.price * item.quantity}
-                </h5>
+                <p className="text-sm text-gray-600">Size: {item.size}</p>
+                <p className="text-sm text-gray-600">Color: {item.color}</p>
+                <div className="flex flex-row gap-4 items-center">
+                  <h5 className="text-lg font-medium text-gray-800 mt-2">
+                    ${item.price * item.quantity}
+                  </h5>
+                  {item.discountPercent && item.discountPercent > 0 && (
+                    <>
+                      <h5 className="text-lg text-gray-500 font-bold line-through mt-2">
+                        ${(item.price * item.quantity / (1 - item.discountPercent / 100)).toFixed(2)}
+                      </h5>
+                      <button className="w-[58px] h-[28px] text-red-700 bg-[#FF33331A] rounded-2xl mt-2">
+                        -{item.discountPercent}%
+                      </button>
+                    </>
+                  )}
+                </div>
               </div>
 
               {/* Quantity & Remove Section */}
@@ -112,8 +128,6 @@ const Cartpage: React.FC = () => {
               </div>
             </div>
           ))}
-
-
         </div>
 
         {/* Order Summary */}
@@ -124,7 +138,7 @@ const Cartpage: React.FC = () => {
             <p>${subtotal.toFixed(2)}</p>
           </div>
           <div className="flex justify-between text-gray-600">
-            <p>Discount (-20%)</p>
+            <p>Discount</p>
             <p className="text-red-500 font-semibold">-${discount.toFixed(2)}</p>
           </div>
           <div className="flex justify-between text-gray-600">
@@ -139,7 +153,7 @@ const Cartpage: React.FC = () => {
             <input
               type="text"
               placeholder="Add promo code"
-              className="flex-grow border border-gray-300 rounded px-4  py-2"
+              className="flex-grow border border-gray-300 rounded px-4 py-2"
             />
             <button className="bg-black text-white px-6 py-2 rounded">
               Apply

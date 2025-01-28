@@ -19,12 +19,18 @@ type Product = {
   price: number;
   description: string;
   imageUrl: string;
+  tags:string[];
+  discountPercent?: number;
+  
 };
 
 export default function Post() {
   const params = useParams();
   const dispatch = useDispatch(); // For dispatching Redux actions
   const [post, setPost] = useState<Product | null>(null);
+  const [selectedColor, setSelectedColor] = useState<string | null>(null);
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [quantity, setQuantity] = useState<number>(1);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -40,15 +46,20 @@ export default function Post() {
 
   // Add to Cart handler
   const handleAddToCart = () => {
-    if (post) {
+    if (post && selectedColor && selectedSize) {
       dispatch(addToCart({
         id: post._id,
         name: post.name,
         price: post.price,
         imageUrl: post.imageUrl,
-        quantity: 1, // Default quantity to 1
+        quantity,
+        color: selectedColor,
+        size: selectedSize,
+        discountPercent: post.discountPercent,
       }));
       alert(`${post.name} has been added to the cart!`);
+    } else {
+      alert("Please select a color and size.");
     }
   };
 
@@ -100,7 +111,19 @@ export default function Post() {
             </div>
 
             {/* Price */}
-            <p className="font-bold text-black text-3xl">${post.price}</p>
+            <div className="flex flex-row gap-4 items-center">
+              <p className="font-bold text-black text-3xl">${post.price}</p>
+              {(post.discountPercent ?? 0) > 0 && (
+  <>
+    <h1 className="text-2xl text-gray-500 font-bold line-through">
+      $202
+    </h1>
+    <button className="w-[58px] h-[28px] text-red-700 bg-[#FF33331A] rounded-2xl">
+      -{post.discountPercent}%
+    </button>
+  </>
+)}
+            </div>
 
             {/* Description */}
             <div className="mt-4 text-base md:text-lg">{renderParagraphs(post.description)}</div>
@@ -108,11 +131,14 @@ export default function Post() {
             {/* Select Colors */}
             <h1 className="text-sm mt-8">Select Colors</h1>
             <div className="flex gap-4 items-center mt-4">
-              <div className="h-9 w-9 bg-[#4F4631] border-2 rounded-full flex items-center justify-center text-white">
-                <Check />
-              </div>
-              <div className="h-9 w-9 bg-[#314F4A] rounded-full"></div>
-              <div className="h-9 w-9 bg-[#31344F] rounded-full"></div>
+              {["#4F4631", "#314F4A", "#31344F"].map((color) => (
+                <div
+                  key={color}
+                  className={`h-9 w-9 rounded-full ${selectedColor === color ? 'border-2 border-black' : ''}`}
+                  style={{ backgroundColor: color }}
+                  onClick={() => setSelectedColor(color)}
+                ></div>
+              ))}
             </div>
 
             {/* Choose Size */}
@@ -121,12 +147,31 @@ export default function Post() {
               {["Small", "Medium", "Large", "X-Large"].map((size) => (
                 <div
                   key={size}
-                  className="h-12 w-20 flex items-center justify-center bg-[#F0F0F0] rounded-full text-sm font-medium hover:bg-black hover:text-white cursor-pointer"
+                  className={`h-12 w-20 flex items-center justify-center bg-[#F0F0F0] rounded-full text-sm font-medium hover:bg-black hover:text-white cursor-pointer ${selectedSize === size ? 'bg-black text-white' : ''}`}
+                  onClick={() => setSelectedSize(size)}
                 >
                   {size}
                 </div>
               ))}
             </div>
+
+            {/* Quantity Selector */}
+            {/* <h1 className="text-sm mt-6">Quantity</h1>
+            <div className="flex items-center mt-4">
+              <button
+                className="px-3 py-1 text-lg font-bold border rounded-full"
+                onClick={() => setQuantity((prev) => Math.max(prev - 1, 1))}
+              >
+                -
+              </button>
+              <span className="px-4">{quantity}</span>
+              <button
+                className="px-3 py-1 text-lg font-bold border rounded-full"
+                onClick={() => setQuantity((prev) => prev + 1))}
+              >
+                +
+              </button>
+            </div> */}
 
             {/* Add to Cart Button */}
             <button

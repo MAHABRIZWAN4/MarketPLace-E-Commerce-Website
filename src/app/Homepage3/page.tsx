@@ -12,6 +12,7 @@ type Product = {
   price: number;
   description: string;
   imageUrl: string;
+  tags:string[];
   discountPercent?: number;
 };
 
@@ -68,16 +69,17 @@ export default function Homepage3() {
                 </div>
                 <div className="flex flex-row gap-4 items-center">
                   <h1 className="text-2xl font-bold">${item.price}</h1>
-                  {item.discountPercent && item.discountPercent > 0 && (
-                    <>
-                      <h1 className="text-2xl text-gray-500 font-bold line-through">
-                        $202
-                      </h1>
-                      <button className="w-[58px] h-[28px] text-red-700 bg-[#FF33331A] rounded-2xl">
-                        -{item.discountPercent}%
-                      </button>
-                    </>
-                  )}
+                  {(item.discountPercent ?? 0) > 0 && (
+  <>
+    <h1 className="text-2xl text-gray-500 font-bold line-through">
+      $202
+    </h1>
+    <button className="w-[58px] h-[28px] text-red-700 bg-[#FF33331A] rounded-2xl">
+      -{item.discountPercent}%
+    </button>
+  </>
+)}
+
                 </div>
               </div>
             ))}
