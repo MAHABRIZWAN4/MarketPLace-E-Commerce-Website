@@ -19,9 +19,9 @@ type Product = {
   price: number;
   description: string;
   imageUrl: string;
-  tags:string[];
+  tags: string[];
   discountPercent?: number;
-  
+  colors: string[];
 };
 
 export default function Post() {
@@ -35,9 +35,11 @@ export default function Post() {
   useEffect(() => {
     const fetchProducts = async () => {
       const fetchedProducts: Product[] = await sanityFetch({ query: allproducts });
+      console.log(fetchedProducts);
 
       // Find product based on the route parameter
       const product = fetchedProducts.find((p) => p._id === params?.id);
+      console.log(product);
       setPost(product || null);
     };
 
@@ -114,15 +116,15 @@ export default function Post() {
             <div className="flex flex-row gap-4 items-center">
               <p className="font-bold text-black text-3xl">${post.price}</p>
               {(post.discountPercent ?? 0) > 0 && (
-  <>
-    <h1 className="text-2xl text-gray-500 font-bold line-through">
-      $202
-    </h1>
-    <button className="w-[58px] h-[28px] text-red-700 bg-[#FF33331A] rounded-2xl">
-      -{post.discountPercent}%
-    </button>
-  </>
-)}
+                <>
+                  <h1 className="text-2xl text-gray-500 font-bold line-through">
+                    $202
+                  </h1>
+                  <button className="w-[58px] h-[28px] text-red-700 bg-[#FF33331A] rounded-2xl">
+                    -{post.discountPercent}%
+                  </button>
+                </>
+              )}
             </div>
 
             {/* Description */}
@@ -130,11 +132,11 @@ export default function Post() {
 
             {/* Select Colors */}
             <h1 className="text-sm mt-8">Select Colors</h1>
-            <div className="flex gap-4 items-center mt-4">
-              {["#4F4631", "#314F4A", "#31344F"].map((color) => (
+            <div className="flex gap-4 mt-4">
+              {post.colors.map((color, index) => (
                 <div
-                  key={color}
-                  className={`h-9 w-9 rounded-full ${selectedColor === color ? 'border-2 border-black' : ''}`}
+                  key={index}
+                  className={`w-10 h-10 rounded-full ${selectedColor === color ? 'border-2 border-black' : ''}`}
                   style={{ backgroundColor: color }}
                   onClick={() => setSelectedColor(color)}
                 ></div>
@@ -154,24 +156,6 @@ export default function Post() {
                 </div>
               ))}
             </div>
-
-            {/* Quantity Selector */}
-            {/* <h1 className="text-sm mt-6">Quantity</h1>
-            <div className="flex items-center mt-4">
-              <button
-                className="px-3 py-1 text-lg font-bold border rounded-full"
-                onClick={() => setQuantity((prev) => Math.max(prev - 1, 1))}
-              >
-                -
-              </button>
-              <span className="px-4">{quantity}</span>
-              <button
-                className="px-3 py-1 text-lg font-bold border rounded-full"
-                onClick={() => setQuantity((prev) => prev + 1))}
-              >
-                +
-              </button>
-            </div> */}
 
             {/* Add to Cart Button */}
             <button

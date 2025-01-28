@@ -11,20 +11,33 @@ type Product = {
   price: number;
   description: string;
   imageUrl: string;
+  category: string;
+  color: string;
+  size: string;
+  style: string;
 };
 
 export default function Home() {
   const [allProducts, setAllProducts] = useState<Product[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
 
   const productsPerPage = 9;
+
+  // Filters
+  const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
+  const [selectedPrice, setSelectedPrice] = useState<number>(500); // Default max price
+  const [selectedColors, setSelectedColors] = useState<string[]>([]);
+  const [selectedSize, setSelectedSize] = useState<string[]>([]);
+  const [selectedStyle, setSelectedStyle] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const products: Product[] = await sanityFetch({ query: allproducts });
         setAllProducts(products);
+        setFilteredProducts(products); // Initialize with all products
         setIsLoading(false);
       } catch (error) {
         console.error("Failed to fetch products:", error);
@@ -35,13 +48,35 @@ export default function Home() {
     fetchProducts();
   }, []);
 
-  const totalPages = Math.ceil(allProducts.length / productsPerPage);
+  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
   const startIndex = (currentPage - 1) * productsPerPage;
   const endIndex = startIndex + productsPerPage;
-  const productsToDisplay = allProducts.slice(startIndex, endIndex);
+  const productsToDisplay = filteredProducts.slice(startIndex, endIndex);
 
   const goToPage = (page: number) => {
     setCurrentPage(page);
+  };
+
+  const handleApplyFilter = () => {
+    const filtered = allProducts.filter((product) => {
+      const matchesCategory =
+        selectedCategory.length === 0 || selectedCategory.includes(product.category);
+      const matchesPrice = product.price <= selectedPrice;
+      const matchesColor = selectedColors.length === 0 || selectedColors.includes(product.color);
+      const matchesSize = selectedSize.length === 0 || selectedSize.includes(product.size);
+      const matchesStyle = selectedStyle.length === 0 || selectedStyle.includes(product.style);
+
+      return matchesCategory && matchesPrice && matchesColor && matchesSize && matchesStyle;
+    });
+
+    setFilteredProducts(filtered);
+    setCurrentPage(1); // Reset to first page
+  };
+
+  const handleCheckboxChange = (value: string, setState: React.Dispatch<React.SetStateAction<string[]>>) => {
+    setState((prev) =>
+      prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
+    );
   };
 
   if (isLoading) {
@@ -51,18 +86,21 @@ export default function Home() {
   return (
     <div className="max-w-7xl mx-auto p-6 flex flex-col md:flex-row bg-red-60 px-4 md:px-14">
       {/* Sidebar */}
-      
-        {/* Add your filter code here */}
-        <aside className="w-full md:w-1/4 p-4 border-r bg-gray-100 mb-6 md:mb-0">
+      <aside className="w-full md:w-1/4 p-4 border-r bg-gray-100 mb-6 md:mb-0">
         <h2 className="text-lg font-bold mb-4">Filters</h2>
 
         {/* Category Filter */}
         <div className="mb-4">
           <h3 className="font-semibold mb-2">Category</h3>
           <ul className="space-y-2">
-            {["T-Shirts", "Shorts", "Jeans", "Hoodies"].map((category, index) => (
-              <li key={index}>
-                <input type="checkbox" id={category.toLowerCase()} className="mr-2" />
+            {["T-Shirts", "Shorts", "Jeans", "Hoodies"].map((category) => (
+              <li key={category}>
+                <input
+                  type="checkbox"
+                  id={category.toLowerCase()}
+                  className="mr-2"
+                  onChange={() => handleCheckboxChange(category, setSelectedCategory)}
+                />
                 <label htmlFor={category.toLowerCase()}>{category}</label>
               </li>
             ))}
@@ -74,8 +112,15 @@ export default function Home() {
           <h3 className="font-semibold mb-2">Price</h3>
           <div className="flex items-center space-x-2">
             <span>$50</span>
-            <input type="range" min="50" max="500" className="w-full" defaultValue="250" />
-            <span>$500</span>
+            <input
+              type="range"
+              min="50"
+              max="500"
+              className="w-full"
+              value={selectedPrice}
+              onChange={(e) => setSelectedPrice(Number(e.target.value))}
+            />
+            <span>${selectedPrice}</span>
           </div>
         </div>
 
@@ -83,12 +128,14 @@ export default function Home() {
         <div className="mb-4">
           <h3 className="font-semibold mb-2">Colors</h3>
           <div className="flex flex-wrap gap-2">
-            {["green", "blue", "pink", "red", "purple", "white", "black"].map((color, index) => (
+            {["green", "blue", "pink", "red", "purple", "white", "black"].map((color) => (
               <div
-                key={index}
-                className="w-6 h-6 rounded-full cursor-pointer"
+                key={color}
+                className={`w-6 h-6 rounded-full cursor-pointer ${
+                  selectedColors.includes(color) ? "ring-2 ring-black" : ""
+                }`}
                 style={{ backgroundColor: color }}
-                title={color.charAt(0).toUpperCase() + color.slice(1)}
+                onClick={() => handleCheckboxChange(color, setSelectedColors)}
               ></div>
             ))}
           </div>
@@ -98,10 +145,13 @@ export default function Home() {
         <div className="mb-4">
           <h3 className="font-semibold mb-2">Size</h3>
           <div className="flex flex-wrap gap-3">
-            {["Small", "Medium", "Large", "X-Large", "3XL Large", "4XL Large"].map((size, index) => (
+            {["Small", "Medium", "Large", "X-Large", "3XL Large", "4XL Large"].map((size) => (
               <button
-                key={index}
-                className="px-4 py-2 border rounded-md transition-all duration-300 hover:bg-black hover:text-white focus:ring-2 focus:ring-black"
+                key={size}
+                onClick={() => handleCheckboxChange(size, setSelectedSize)}
+                className={`px-4 py-2 border rounded-md transition-all duration-300 ${
+                  selectedSize.includes(size) ? "bg-black text-white" : "hover:bg-black hover:text-white"
+                }`}
               >
                 {size}
               </button>
@@ -113,9 +163,14 @@ export default function Home() {
         <div className="mb-4">
           <h3 className="font-semibold mb-2">Dress Style</h3>
           <ul className="space-y-2">
-            {["Casual", "Formal", "Party", "Gym"].map((style, index) => (
-              <li key={index}>
-                <input type="checkbox" id={style.toLowerCase()} className="mr-2" />
+            {["Casual", "Formal", "Party", "Gym"].map((style) => (
+              <li key={style}>
+                <input
+                  type="checkbox"
+                  id={style.toLowerCase()}
+                  className="mr-2"
+                  onChange={() => handleCheckboxChange(style, setSelectedStyle)}
+                />
                 <label htmlFor={style.toLowerCase()}>{style}</label>
               </li>
             ))}
@@ -123,15 +178,17 @@ export default function Home() {
         </div>
 
         {/* Apply Filter Button */}
-        <button className="mt-4 bg-black text-white px-4 py-2 rounded">Apply Filter</button>
+        <button
+          className="mt-4 bg-black text-white px-4 py-2 rounded"
+          onClick={handleApplyFilter}
+        >
+          Apply Filter
+        </button>
       </aside>
-
-
-
 
       {/* Product Grid */}
       <main className="w-full md:w-3/4 p-4">
-        <h1 className="text-[32px] font-bold mb-4">Casual</h1>
+        <h1 className="text-[32px] font-bold mb-4">Products</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {productsToDisplay.map((item) => (
             <div key={item._id} className="border p-4 rounded">
@@ -149,7 +206,7 @@ export default function Home() {
                 <FaStar className="text-yellow-400" />
                 <FaStar className="text-yellow-400" />
               </div>
-              <p className="text-[24px] font-bold">{item.price}</p>
+              <p className="text-[24px] font-bold">${item.price}</p>
             </div>
           ))}
         </div>
