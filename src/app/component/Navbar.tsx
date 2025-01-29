@@ -1,13 +1,15 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { IoSearchOutline } from "react-icons/io5";
-import { MdOutlineShoppingCart } from "react-icons/md";
+import { MdKeyboardArrowDown, MdOutlineShoppingCart } from "react-icons/md";
 import { CiHeart } from "react-icons/ci";
 import { Menu as LucideMenu } from "lucide-react";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { allproducts } from "@/sanity/lib/queries";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 // Define Product type
 interface Product {
@@ -64,7 +66,97 @@ function Navbar() {
     <div>
       <header className="max-w-7xl mx-auto body-font relative z-20">
         <div className="flex items-center justify-between h-20 mx-5 lg:mx-8">
-          <h1 className="text-[28px] lg:text-[35px] font-extrabold">Shop.Co</h1>
+          {/* Move SheetTrigger (Menu Bar) here */}
+          <div className="lg:hidden">
+            <Sheet>
+              <SheetTrigger>
+                <LucideMenu className="mt-2" />
+              </SheetTrigger>
+              <SheetContent>
+                <SheetHeader>
+                  <SheetTitle>MENU</SheetTitle>
+                  <SheetDescription>Click outside to close</SheetDescription>
+                </SheetHeader>
+                <ul className="flex flex-col gap-10 mt-14">
+                  <li>
+                    <Link
+                      href="/"
+                      className="gap-1 hover:text-gray-900 hover:cursor-pointer hover:underline"
+                    >
+                      Shop
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/"
+                      className="hover:text-gray-900 hover:cursor-pointer hover:underline"
+                    >
+                      Contact
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/Homepage3"
+                      className="mr-5 hover:text-gray-900 hover:cursor-pointer hover:underline"
+                    >
+                      New Arrival
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/category"
+                      className="mr-5 hover:text-gray-900 hover:cursor-pointer hover:underline"
+                    >
+                      Brands
+                    </Link>
+                  </li>
+                </ul>
+              </SheetContent>
+            </Sheet>
+          </div>
+          <h1 className="text-[28px] lg:text-[35px] sm:text-[35px] ml-6 sm:text-center font-extrabold">
+            Shop.Co
+          </h1>
+          {/* Navigation for Larger Screens */}
+          <nav className="hidden lg:flex gap-[20px] ml-6 lg:text-lg">
+            <Link
+              href="/"
+              className="mr-5 flex items-center justify-center gap-1 hover:text-gray-900 hover:cursor-pointer hover:underline"
+            >
+              Shop
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <MdKeyboardArrowDown />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <Link href="/category">Category</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>Billing</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </Link>
+            <Link
+              href="/Homepage4"
+              className="mr-5 hover:text-gray-900 hover:cursor-pointer hover:underline"
+            >
+              On Sale
+            </Link>
+            <Link
+              href="/Homepage3"
+              className="mr-5 hover:text-gray-900 hover:cursor-pointer hover:underline"
+            >
+              New Arrival
+            </Link>
+            <Link
+              href="/category"
+              className="mr-5 hover:text-gray-900 hover:cursor-pointer hover:underline"
+            >
+              Brands
+            </Link>
+          </nav>
+
           <div className="flex items-center relative">
             <IoSearchOutline className="w-6 h-6 text-gray-600 absolute left-3" />
             <input
@@ -95,6 +187,7 @@ function Navbar() {
             </div>
           </div>
         </div>
+
       </header>
 
       {/* Overlay Search Results */}
@@ -137,7 +230,9 @@ function Navbar() {
           </div>
         </div>
       )}
+
     </div>
+   
   );
 }
 
