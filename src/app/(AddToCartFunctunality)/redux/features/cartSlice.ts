@@ -1,40 +1,54 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface CartItem {
-  id: number;
+  name: any;
+  id: string;
   title: string;
   price: number;
   imageUrl: string;
   quantity: number;
+  color: string;
+  size: string;
+  discountPercent?: number;
 }
 
-const initialState: CartItem[] = [];
+interface CartState {
+  items: CartItem[];
+}
+
+const initialState: CartState = {
+  items: [],
+};
 
 const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addToCart: (state, action) => {
-      const itemIndex = state.findIndex(item => item.id === action.payload.id);
-      if (itemIndex >= 0) {
-        state[itemIndex].quantity += 1;
+    addToCart: (state, action: PayloadAction<CartItem>) => {
+      const { id, color, size } = action.payload;
+      const existingItem = state.items.find(
+        (item) => item.id === id && item.color === color && item.size === size
+      );
+
+      if (existingItem) {
+        existingItem.quantity += action.payload.quantity;
       } else {
-        state.push({ ...action.payload, quantity: 1 });
+        state.items.push(action.payload);
       }
     },
-    remove: (state, action) => {
-      return state.filter(item => item.id !== action.payload);
+    remove: (state, action: PayloadAction<string>) => {
+      state.items = state.items.filter(item => item.id !== action.payload);
     },
     incrementQuantity: (state, action) => {
-      const itemIndex = state.findIndex(item => item.id === action.payload);
+      const itemIndex = state.items.findIndex(item => item.id === action.payload);
       if (itemIndex >= 0) {
-        state[itemIndex].quantity += 1;
+        state.items[itemIndex].quantity += 1;
       }
     },
     decrementQuantity: (state, action) => {
-      const itemIndex = state.findIndex(item => item.id === action.payload);
-      if (itemIndex >= 0 && state[itemIndex].quantity > 1) {
-        state[itemIndex].quantity -= 1;
+      const itemIndex = state.items.findIndex(item => item.id === action.payload);
+      if (itemIndex >= 0 && state.items[itemIndex].quantity > 1) {
+        state.items[itemIndex].quantity -= 1;
       }
     },
   },

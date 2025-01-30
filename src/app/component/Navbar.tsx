@@ -22,11 +22,11 @@ interface Product {
 
 // Redux state type
 interface RootState {
-  cart: { quantity: number }[];
+  cart: { items: { quantity: number }[] };
 }
 
 function Navbar() {
-  const cartItems = useSelector((state: RootState) => state.cart);
+  const cartItems = useSelector((state: RootState) => state.cart.items);
   const totalQuantity = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
   const [searchQuery, setSearchQuery] = useState("");

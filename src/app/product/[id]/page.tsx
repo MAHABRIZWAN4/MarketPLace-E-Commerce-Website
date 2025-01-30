@@ -51,15 +51,17 @@ export default function Post() {
   const handleAddToCart = () => {
     if (post && selectedColor && selectedSize) {
       dispatch(addToCart({
-        id: post._id,
-        name: post.name,
-        price: post.price,
-        imageUrl: post.imageUrl,
-        quantity,
-        color: selectedColor,
-        size: selectedSize,
-        discountPercent: post.discountPercent,
-      }));
+              id: post._id,
+              name: post.name,
+              title: post.name, // Assuming title is the same as name
+              price: post.price,
+              imageUrl: post.imageUrl,
+              quantity,
+              color: selectedColor,
+              size: selectedSize,
+              discountPercent: post.discountPercent,
+            }));
+  
       alert(`${post.name} has been added to the cart!`);
     } else {
       alert("Please select a color and size.");

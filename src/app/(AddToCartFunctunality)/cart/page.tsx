@@ -8,31 +8,66 @@ import Link from "next/link";
 
 import { RootState } from "../redux/store";
 import { decrementQuantity, incrementQuantity, remove } from "../redux/features/cartSlice";
+import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 
-interface CartItem {
-  id: number;
-  title: string;
+interface ReduxCartItem {
+  id: string;
+  name: string;
   price: number;
   imageUrl: string;
   quantity: number;
-  color?: string;
-  size?: string;
+  color: string;
+  size: string;
   discountPercent?: number;
+}
+
+// interface CartItem {
+//   id: string;
+//   name: string;
+//   price: number;
+//   imageUrl: string;
+//   quantity: number;
+//   color: string;
+//   size: string;
+//   discountPercent?: number;
+// }
+
+
+
+interface CartItem {
+
+  id: string;
+
+  name: string;
+
+  price: number;
+
+  imageUrl: string;
+
+  quantity: number;
+
+  color: string;
+
+  size: string;
+
+  discountPercent?: number;
+
 }
 
 const Cartpage: React.FC = () => {
   const dispatch = useDispatch();
-  const cartItems: CartItem[] = useSelector((state: RootState) => state.cart);
+  const cartItems: ReduxCartItem[] = useSelector((state: RootState) => state.cart.items as unknown as ReduxCartItem[]);
 
-  const handleRemove = (id: number) => {
+  const handleRemove = (id: string) => {
     dispatch(remove(id));
   };
 
-  const handleIncrement = (id: number) => {
+  const handleIncrement = (id: string) => {
     dispatch(incrementQuantity(id));
   };
 
-  const handleDecrement = (id: number) => {
+  const handleDecrement = (id: string) => {
     dispatch(decrementQuantity(id));
   };
 
@@ -47,6 +82,22 @@ const Cartpage: React.FC = () => {
   const deliveryFee = 15; // Fixed delivery fee
   const total = subtotal - discount + deliveryFee;
 
+  const router = useRouter();
+  const handleProceed = () => {
+    Swal.fire({
+      title: 'Success!',
+      text: 'Please wait your moment',
+      icon: 'success',
+      showCancelButton: true,
+      confirmButtonText: 'OK',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        router.push('/checkout');
+      }
+    });
+  };
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 flex flex-col items-center">
       {/* Breadcrumb */}
@@ -64,7 +115,7 @@ const Cartpage: React.FC = () => {
         <div className="w-full lg:w-2/3 space-y-6">
           {cartItems.map((item: CartItem) => (
             <div
-              key={item.id}
+              key={`${item.id}-${item.color}-${item.size}`}
               className="flex items-center bg-white shadow-md rounded-lg p-4"
             >
               {/* Image Section */}
@@ -81,7 +132,7 @@ const Cartpage: React.FC = () => {
               {/* Content Section */}
               <div className="flex-grow px-4">
                 <h5 className="text-lg font-semibold text-gray-800">
-                  {item.title}
+                  {item.name}
                 </h5>
                 <p className="text-sm text-gray-600">Size: {item.size}</p>
                 <p className="text-sm text-gray-600">Color: {item.color}</p>
@@ -159,7 +210,7 @@ const Cartpage: React.FC = () => {
               Apply
             </button>
           </div>
-          <button className="w-full bg-black text-white py-3 rounded mt-4 flex items-center justify-center">
+          <Link href="/checkout"><button className="w-full bg-black text-white py-3 rounded mt-4 flex items-center justify-center"  onClick={handleProceed}>
             Go to Checkout
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -175,7 +226,13 @@ const Cartpage: React.FC = () => {
                 d="M17 8l4 4m0 0l-4 4m4-4H3"
               />
             </svg>
-          </button>
+          </button></Link>
+           {/* <button
+            onClick={handleProceed}
+            className="w-full bg-black text-white py-3 rounded mt-4 flex items-center justify-center"
+          >
+            Go to Checkout
+          </button> */}
         </div>
       </div>
     </div>
