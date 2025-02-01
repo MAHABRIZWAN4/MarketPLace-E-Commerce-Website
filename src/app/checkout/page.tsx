@@ -1,5 +1,5 @@
 "use client";
-
+console.log(process.env.NEXT_STRIPE_SECRET_KEY)
 import { useSelector } from "react-redux";
 import Image from "next/image";
 import { JSXElementConstructor, ReactElement, ReactNode, useState } from "react";
@@ -34,28 +34,75 @@ const cartItems = useSelector((state: RootState) => state.cart.items);
   const discount = subtotal * 0.2; // 20% discount
   const total = subtotal - discount;
 
-  const handlePlaceOrder = async () => {
-    // Validate form and proceed with Stripe payment
-    const stripe = await stripePromise;
-    const response = await fetch('/api/create-checkout-session', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        cartItems,
-        formValues,
-        total,
-      }),
-    });
+  // const handlePlaceOrder = async () => {
+  //   // Validate form and proceed with Stripe payment
+  //   const stripe = await stripePromise;
+  //   const response = await fetch('/api/create-checkout-session', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({
+  //       cartItems,
+  //       formValues,
+  //       total,
+  //     }),
+  //   });
 
-    if (response.ok) {
-      const { id } = await response.json();
-      await stripe?.redirectToCheckout({ sessionId: id });
-    } else {
-      toast.error('Failed to create checkout session');
-    }
-  };
+  //   if (response.ok) {
+  //     const { id } = await response.json();
+  //     await stripe?.redirectToCheckout({ sessionId: id });
+  //   } else {
+  //     toast.error('Failed to create checkout session');
+  //   }
+  // };
+
+
+
+
+  // const handleCheckout = async () => {
+  //   try {
+  //       const response = await fetch('http://localhost:3000/api/checkout',{
+  //         method:'POST',
+  //         headers:{
+  //           "Content-Type":"application/json"
+  //         },
+  //         body: JSON.stringify({ allproducts: cartItems }), // Change this line
+  //       });
+  //       const data = await response.json();
+  //       if(data.url){
+  //         window.location.href = data.url
+  //       }
+  //   } catch (error) {
+  //     console.error("Error during checkout", error)
+  //   }
+
+    const handleCheckout = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/checkout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ allproducts: cartItems }),
+        });
+    
+        const data = await response.json();
+    
+        if (data?.url) {
+          window.location.href = data.url; // Redirect to Stripe Checkout
+        } else {
+          console.error("Stripe session URL is missing", data);
+          toast.error("Failed to create checkout session");
+        }
+      } catch (error) {
+        console.error("Error during checkout", error);
+        toast.error("Something went wrong during checkout.");
+      }
+    };
+    
+
+
+
+
 
   return (
     <div className="min-h-screen bg-white">
@@ -107,10 +154,11 @@ const cartItems = useSelector((state: RootState) => state.cart.items);
             </div>
 
             <button
-              onClick={handlePlaceOrder}
-              className="w-full h-10 sm:h-12 bg-blue-500 hover:bg-blue-800 rounded-sm mt-4 text-sm sm:text-base"
+              onClick={handleCheckout}
+            
+                 className="w-full h-10 sm:h-12 bg-blue-500 hover:bg-blue-800 rounded-sm mt-4 text-sm sm:text-base"
             >
-              Place Order
+              Pay With Stripe
             </button>
           </div>
         </div>

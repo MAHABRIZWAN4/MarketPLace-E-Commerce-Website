@@ -210,7 +210,7 @@ const Cartpage: React.FC = () => {
               Apply
             </button>
           </div>
-          <Link href="/checkout"><button className="w-full bg-black text-white py-3 rounded mt-4 flex items-center justify-center"  onClick={handleProceed}>
+          <button className="w-full bg-black text-white py-3 rounded mt-4 flex items-center justify-center"  onClick={handleProceed}>
             Go to Checkout
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -226,7 +226,7 @@ const Cartpage: React.FC = () => {
                 d="M17 8l4 4m0 0l-4 4m4-4H3"
               />
             </svg>
-          </button></Link>
+          </button>
            {/* <button
             onClick={handleProceed}
             className="w-full bg-black text-white py-3 rounded mt-4 flex items-center justify-center"
