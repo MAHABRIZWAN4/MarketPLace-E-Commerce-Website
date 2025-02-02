@@ -22,37 +22,15 @@ interface ReduxCartItem {
   discountPercent?: number;
 }
 
-// interface CartItem {
-//   id: string;
-//   name: string;
-//   price: number;
-//   imageUrl: string;
-//   quantity: number;
-//   color: string;
-//   size: string;
-//   discountPercent?: number;
-// }
-
-
-
 interface CartItem {
-
   id: string;
-
   name: string;
-
   price: number;
-
   imageUrl: string;
-
   quantity: number;
-
   color: string;
-
   size: string;
-
   discountPercent?: number;
-
 }
 
 const Cartpage: React.FC = () => {
@@ -227,12 +205,6 @@ const Cartpage: React.FC = () => {
               />
             </svg>
           </button>
-           {/* <button
-            onClick={handleProceed}
-            className="w-full bg-black text-white py-3 rounded mt-4 flex items-center justify-center"
-          >
-            Go to Checkout
-          </button> */}
         </div>
       </div>
     </div>
