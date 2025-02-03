@@ -11,6 +11,8 @@ import { allproducts } from "@/sanity/lib/queries";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
+import { ClerkProvider, SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
+
 // Define Product type
 interface Product {
   _id: string;
@@ -155,6 +157,11 @@ function Navbar() {
             >
               Brands
             </Link>
+          
+            <SignedOut>
+            <SignInButton />
+          </SignedOut>
+            
           </nav>
 
           <div className="flex items-center relative">
@@ -184,6 +191,9 @@ function Navbar() {
 </Link>
 
               <CiHeart className="w-6 h-6" />
+              <SignedIn>
+            <UserButton />
+          </SignedIn>
             </div>
           </div>
         </div>

@@ -6,7 +6,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import toast from "react-hot-toast";
 import { RootState } from "@/app/(AddToCartFunctunality)/redux/store";
 
-const stripePromise = loadStripe(process.env.NEXT_STRIPE_PUBLISHABLE_KEY!);
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 export default function CheckoutPage() {
   const cartItems = useSelector((state: RootState) => state.cart.items);
@@ -112,7 +112,6 @@ export default function CheckoutPage() {
     </div>
   );
 }
-
 
 
 
