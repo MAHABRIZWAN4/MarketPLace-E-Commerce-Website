@@ -8,13 +8,12 @@ export const POST = async (request: Request) => {
   let activeProducts = await stripe.products.list({ active: true });
 
   try {
-    // 1. Find products from stripe that match products from cart.
+    // 1. Find products from stripe that matches products from cart.
     for (const product of allproducts) {
       const matchedProducts = activeProducts?.data?.find((stripeProduct: Stripe.Product) =>
         stripeProduct.name.toLowerCase() === product.name.toLowerCase()
       );
-
-      // 2. If product didn't exist in Stripe, then add this product to Stripe.
+      // 2. If product didn't exist in Stripe, then add this product to stripe.
       if (matchedProducts == undefined) {
         await stripe.products.create({
           name: product.name,
@@ -26,10 +25,12 @@ export const POST = async (request: Request) => {
       }
     }
 
-    // 3. Once the new product has been added to Stripe, fetch updated products
-    activeProducts = await stripe.products.list({ active: true });
+    // 3. Once the new product has been added to stripe, do FETCH Products again with updated products from stripe
+  
 
-    const stripeProducts: { price: string | null; quantity: number }[] = [];
+    activeProducts = await stripe.products.list({ active: true });
+    const stripeProducts: { price: string | undefined; quantity: number }[] = [];
+
 
     for (const product of allproducts) {
       const stripeProduct = activeProducts?.data?.find((stripeProduct: Stripe.Product) =>
@@ -38,15 +39,15 @@ export const POST = async (request: Request) => {
 
       if (stripeProduct) {
         stripeProducts.push({
-          price: stripeProduct.default_price,
+          price: stripeProduct.default_price ? String(stripeProduct.default_price) : undefined,
           quantity: product.quantity,
         });
       }
     }
 
-    // 4. Create Checkout Session
+    // 4. Create Checkout Sessions from body params.
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
+      payment_method_types: ['card'], // Remove this line
       line_items: stripeProducts,
       mode: 'payment',
       success_url: `http://localhost:3000/success`,
