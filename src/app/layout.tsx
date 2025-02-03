@@ -5,7 +5,7 @@ import TopHeader from "./component/TopHeader";
 import Navbar from "./component/Navbar";
 import Footer from "./component/Footer";
 import Providers from "./provider";
-import { ClerkProvider, SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
+import { ClerkProvider } from "@clerk/clerk-react";
 import { useRouter } from "next/navigation"; // Import the router
 
 const geistSans = localFont({
@@ -34,10 +34,7 @@ export default function RootLayout({
   const routerReplace = (href: string) => {
     router.replace(href);
   };
-
-  // Replace with your actual Clerk publishable key
-  const publishableKey = "your-clerk-publishable-key";
-
+  
   return (
     <ClerkProvider
       publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || "default-publishable-key"}  // Pass the publishableKey here

@@ -1,6 +1,5 @@
 "use client";
 
-import { Check } from "lucide-react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { FaStar, FaStarHalf } from "react-icons/fa";
@@ -31,7 +30,7 @@ export default function Post() {
   const [post, setPost] = useState<Product | null>(null);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
-  const [quantity, setQuantity] = useState<number>(1);
+  const [quantity] = useState<number>(1);
 
   useEffect(() => {
     const fetchProducts = async () => {
