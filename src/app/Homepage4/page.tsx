@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, ButtonHTMLAttributes } from "react";
+import React, { useEffect, useState } from "react";
 import { FaStarHalf, FaStar } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
