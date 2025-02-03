@@ -11,7 +11,8 @@ import { allproducts } from "@/sanity/lib/queries";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
-import { ClerkProvider, SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
+import {  SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
+import Image from "next/image";
 
 // Define Product type
 interface Product {
@@ -217,9 +218,11 @@ function Navbar() {
               {searchResults.length > 0 ? (
                 searchResults.map((product) => (
                   <li key={product._id} className="flex items-center gap-4 py-2 border-b">
-                    <img
+                    <Image
                       src={product.imageUrl}
                       alt={product.name}
+                      width={100}
+                      height={100}
                       className="w-16 h-16 object-cover rounded"
                     />
                     <div>

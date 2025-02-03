@@ -1,8 +1,7 @@
 "use client";
 import { useSelector } from "react-redux";
 import Image from "next/image";
-import { useState } from "react";
-import { loadStripe } from "@stripe/stripe-js";
+
 import toast from "react-hot-toast";
 import { RootState } from "@/app/(AddToCartFunctunality)/redux/store";
 
