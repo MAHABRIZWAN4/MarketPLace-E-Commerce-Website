@@ -149,7 +149,7 @@ export default function Post() {
             <h1 className="text-sm mt-6">Choose Size</h1>
             <div className="flex gap-4 items-center mt-4">
               
-            {post.sizes.map((size , index) => (
+            {post.sizes.map((size) => (
               
                 <div
                   key={size}
