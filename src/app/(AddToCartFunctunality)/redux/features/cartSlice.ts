@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+//interface for cart item
 interface CartItem {
-  name: any;
+  name: string | number;
   id: string;
   title: string;
   price: number;
@@ -39,13 +40,13 @@ const cartSlice = createSlice({
     remove: (state, action: PayloadAction<string>) => {
       state.items = state.items.filter(item => item.id !== action.payload);
     },
-    incrementQuantity: (state, action) => {
+    incrementQuantity: (state, action: PayloadAction<string>) => {
       const itemIndex = state.items.findIndex(item => item.id === action.payload);
       if (itemIndex >= 0) {
         state.items[itemIndex].quantity += 1;
       }
     },
-    decrementQuantity: (state, action) => {
+    decrementQuantity: (state, action: PayloadAction<string>) => {
       const itemIndex = state.items.findIndex(item => item.id === action.payload);
       if (itemIndex >= 0 && state.items[itemIndex].quantity > 1) {
         state.items[itemIndex].quantity -= 1;
