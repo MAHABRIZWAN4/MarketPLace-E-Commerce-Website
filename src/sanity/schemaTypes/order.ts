@@ -43,12 +43,25 @@ export default {
     type:"string"
 },
 
+// {
+//     name:"cartItems",
+//     title:"Cart Items",
+//     type:"array",
+//     of:[{ type:"reference", to : { type: "products"} }]
+// },
+
+
+// In your Sanity schema (order.js)
 {
-    name:"cartItems",
-    title:"Cart Items",
-    type:"array",
-    of:[{ type:"reference", to : { type: "products"} }]
-},
+    name: 'cartItems',
+    type: 'array',
+    of: [
+      {
+        type: 'reference',
+        to: [{ type: 'products' }] // Reference to your product type
+      }
+    ]
+  },
 {
     name:"total",
     title:"Total",
@@ -57,7 +70,7 @@ export default {
 {
     name:"discount",
     title:"Discount",
-    type:"string"
+    type:"number"
 },
 // {
 //     name:"satus",

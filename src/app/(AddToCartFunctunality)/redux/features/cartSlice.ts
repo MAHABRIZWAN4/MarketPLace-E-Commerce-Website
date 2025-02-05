@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 //interface for cart item
 interface CartItem {
-  _id: any;
+  _id: string; // Sanity document ID
   name: string | number;
   id: string;
   title: string;

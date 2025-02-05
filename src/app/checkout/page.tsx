@@ -163,146 +163,6 @@ export default function CheckoutPage() {
 
 // *************************** HANDLE PLACE ORDER ***************************
 
-// const handlePlaceOrder = async () => {
-//   if (!validateForm()) {
-//     Swal.fire("Error!", "Please fill all fields before proceeding.", "error");
-//     return;
-//   }
-
-//   const orderData = {
-//     _type: "order",
-//     firstName: formValues.firstName,
-//     lastName: formValues.lastName,
-//     address: formValues.address,
-//     email: formValues.email,
-//     phone: formValues.phone,
-//     zipcode: formValues.zipCode,
-//     city: formValues.city,
-//     cartItems: cartItems.map((item: any) => ({
-//       _type: "reference",
-//       _ref: item._id // ✅ Ensure _ref exists
-//     })),
-//     total: total,
-//     discount: discount,
-//     orderDate: new Date().toISOString(),
-//   };
-  
-
-//   console.log("Sending Order Data to Sanity:", orderData); // ✅ Debugging
-//   console.log("Sending Order Data:", JSON.stringify(orderData, null, 2));
-
-//   // try {
-//   //   const response = await client.create(orderData);
-//   //   console.log("Order created successfully in Sanity:", response); // ✅ Debugging
-//   //   Swal.fire("Success!", "Your order has been successfully placed!", "success");
-//   //   localStorage.removeItem("appliedDiscount");
-//   // } catch (error) {
-//   //   console.error("Error creating order in Sanity:", error);
-//   //   Swal.fire("Error!", "Failed to place the order.", "error");
-//   // }
-  
-
-//   try {
-//     const response = await fetch(
-//       `https://${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v2023-01-01/data/mutate/${process.env.NEXT_PUBLIC_SANITY_DATASET}`,
-//       {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//           Authorization: `Bearer ${process.env.SANITY_API_TOKEN}`, // ✅ Using your existing token
-//         },
-//         body: JSON.stringify({
-//           mutations: [
-//             {
-//               create: {
-//                 _type: "order",
-//                 firstName: "TestUser",
-//                 lastName: "Check",
-//                 email: "test@example.com",
-//               },
-//             },
-//           ],
-//         }),
-//       }
-//     );
-  
-//     const result = await response.json();
-//     console.log("Sanity Response:", result);
-//   } catch (error) {
-//     console.error("Manual Fetch Error:", error);
-//   }
-  
-// };
-
-
-
-
-
-
-// page.tsx
-// const handlePlaceOrder = async () => {
-//   Swal.fire({
-//     // ... Swal options
-//     title:"Processing Your Order",
-//     text:"Please Wait a moment",
-//     icon:"info",
-//     showCancelButton: true,
-//     confirmButtonColor: "#3085d6",
-//     cancelButtonColor:"#d33",
-//     confirmButtonText:"Proceed",
-//   }).then(async (result) => { // Add async here
-//     if (result.isConfirmed) {
-//       if (validateForm()) {
-//         try {
-//           const orderData = {
-//             _type: "order",
-//             firstName: formValues.firstName,
-//             lastName: formValues.lastName,
-//             address: formValues.address,
-//             email: formValues.email,
-//             phone: Number(formValues.phone), // Convert to number
-//             zipcode: Number(formValues.zipCode), // Convert to number
-//             city: formValues.city,
-//             cartItems: cartItems.map((item) => ({
-//               _type: "reference",
-//               _ref: item._id
-//             })),
-//             total: total,
-//             discount: discount, // Ensure schema field name matches
-//             orderDate: new Date().toISOString(),
-//             status: "pending" // Add status if required
-//           };
-
-//           await client.create(orderData);
-//           localStorage.removeItem("appliedDiscount");
-
-//           Swal.fire(
-//             "Success!",
-//             "Your order has been placed!",
-//             "success"
-//           );
-//           // Redirect or clear cart as needed
-//         } catch (error) {
-//           console.error("Error creating order:", error);
-//           Swal.fire(
-//             "Error!",
-//             "Failed to place order.",
-//             "error"
-//           );
-//         }
-//       } else {
-//         Swal.fire(
-//           "Error!",
-//           "Please fill all fields correctly.",
-//           "error"
-//         );
-//       }
-//     }
-//   });
-// };
-
-
-
 const handlePlaceOrder = async () => {
   Swal.fire({
     // ... Swal options
@@ -330,10 +190,11 @@ const handlePlaceOrder = async () => {
                     total:total,
                     discount:discount,
                     cartItems: cartItems.map((item) => ({
+                      _key: item._id, // Add unique key for array items
                       _type: "reference",
-                      _ref: item._id
+                      _ref: item.id // Reference the Sanity document ID
                     }))
-        };
+                  };
 
         try {
           // const response = await fetch('/api/createorder/', {
@@ -345,8 +206,8 @@ const handlePlaceOrder = async () => {
           // });
 
 
-          const response = await fetch('/api/createorder', { // آخر میں `/` نہ لگاؤ
-            method: 'POST',
+          const response = await fetch('/api/createorder', { 
+    method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
