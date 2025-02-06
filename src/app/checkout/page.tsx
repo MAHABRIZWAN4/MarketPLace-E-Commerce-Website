@@ -167,7 +167,7 @@ const handlePlaceOrder = async () => {
           address: formValues.address,
           email: formValues.email,
           phone: formValues.phone,
-          zipcode: formValues.zipCode,
+          // zipcode: formValues.zipCode,
           city: formValues.city,
           total: total,
           discount: discount,
@@ -351,7 +351,7 @@ const handlePlaceOrder = async () => {
               </div>
 
               {/* ZIP CODE */}
-              <div className="flex flex-col">
+              {/* <div className="flex flex-col">
                 <label htmlFor="zipCode" className="font-medium text-gray-700">Zip-Code</label>
                 <input 
                   type="text" // Change input type to text
@@ -362,7 +362,7 @@ const handlePlaceOrder = async () => {
                   className="border-2 border-gray-300 focus:ring focus:ring-blue-400 w-full text-center rounded-lg px-4 py-2 transition-all duration-300 outline-none focus:scale-105"
                 />
                 {formErrors.zipCode && <p className="text-red-500 text-xs">{formErrors.zipCode}</p>}
-              </div>
+              </div> */}
 
               {/* CITY */}
               <div className="flex flex-col">
