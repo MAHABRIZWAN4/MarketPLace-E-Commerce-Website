@@ -41,6 +41,7 @@ export async function POST(req: Request) {
     const order = await client.create(body);
     return NextResponse.json({ success: true, order });
   } catch (error) {
+    console.error(error); 
     return NextResponse.json({ error: "Failed to create order" }, { status: 500 });
   }
 }

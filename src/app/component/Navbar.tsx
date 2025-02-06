@@ -1,21 +1,18 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { IoSearchOutline } from "react-icons/io5";
-import { MdKeyboardArrowDown, MdOutlineShoppingCart } from "react-icons/md";
-import { CiHeart } from "react-icons/ci";
+import {  MdOutlineShoppingCart } from "react-icons/md";
+
 import { Menu as LucideMenu } from "lucide-react";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { allproducts } from "@/sanity/lib/queries";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { CgProfile } from "react-icons/cg";
 
 import {  SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
 import Image from "next/image";
-import { FaPassport, FaPhoenixFramework } from "react-icons/fa";
-import { FaPersonRifle } from "react-icons/fa6";
 
 // Define Product type
 interface Product {
