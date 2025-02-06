@@ -10,9 +10,12 @@ import { sanityFetch } from "@/sanity/lib/fetch";
 import { allproducts } from "@/sanity/lib/queries";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { CgProfile } from "react-icons/cg";
 
 import {  SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
 import Image from "next/image";
+import { FaPassport, FaPhoenixFramework } from "react-icons/fa";
+import { FaPersonRifle } from "react-icons/fa6";
 
 // Define Product type
 interface Product {
@@ -68,7 +71,7 @@ function Navbar() {
   return (
     <div>
       <header className="max-w-7xl mx-auto body-font relative z-20">
-        <div className="flex items-center justify-between h-20 mx-5 lg:mx-8">
+        <div className="flex bg-white items-center justify-between h-20 mx-5 lg:mx-8">
           {/* Move SheetTrigger (Menu Bar) here */}
           <div className="lg:hidden">
             <Sheet>
@@ -77,11 +80,11 @@ function Navbar() {
               </SheetTrigger>
               <SheetContent>
                 <SheetHeader>
-                  <SheetTitle>MENU</SheetTitle>
-                  <SheetDescription>Click outside to close</SheetDescription>
+                  <SheetTitle className="text-2xl">MENU</SheetTitle>
+                  <SheetDescription className="text-xl">Click outside to close</SheetDescription>
                 </SheetHeader>
                 <ul className="flex flex-col gap-10 mt-14">
-                  <li>
+                  <li className="text-xl">
                     <Link
                       href="/"
                       className="gap-1 hover:text-gray-900 hover:cursor-pointer hover:underline"
@@ -89,15 +92,15 @@ function Navbar() {
                       Shop
                     </Link>
                   </li>
-                  <li>
+                  <li className="text-xl">
                     <Link
                       href="/"
                       className="hover:text-gray-900 hover:cursor-pointer hover:underline"
                     >
-                      Contact
+                       On Sale
                     </Link>
                   </li>
-                  <li>
+                  <li className="text-xl">
                     <Link
                       href="/Homepage3"
                       className="mr-5 hover:text-gray-900 hover:cursor-pointer hover:underline"
@@ -105,7 +108,7 @@ function Navbar() {
                       New Arrival
                     </Link>
                   </li>
-                  <li>
+                  <li className="text-xl">
                     <Link
                       href="/category"
                       className="mr-5 hover:text-gray-900 hover:cursor-pointer hover:underline"
@@ -113,10 +116,28 @@ function Navbar() {
                       Brands
                     </Link>
                   </li>
+
+
+<li className="bg-blue-600 text-white w-20 px-3 h-8 rounded-md text-lg"><SignedOut>
+            <SignInButton />
+          </SignedOut></li>
+                  
+
+
                 </ul>
+                
+          
               </SheetContent>
             </Sheet>
+
+
+            
+           
           </div>
+
+
+
+
           <h1 className="text-[28px] lg:text-[35px] sm:text-[35px] ml-6 sm:text-center font-extrabold">
             Shop.Co
           </h1>
@@ -127,18 +148,6 @@ function Navbar() {
               className="mr-5 flex items-center justify-center gap-1 hover:text-gray-900 hover:cursor-pointer hover:underline"
             >
               Shop
-              <DropdownMenu>
-                <DropdownMenuTrigger>
-                  <MdKeyboardArrowDown />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>
-                    <Link href="/category">Category</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>Billing</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
             </Link>
             <Link
               href="/Homepage4"
@@ -166,7 +175,7 @@ function Navbar() {
           </nav>
 
           <div className="flex items-center relative">
-            <IoSearchOutline className="w-6 h-6 text-gray-600 absolute left-3" />
+            <IoSearchOutline className="w-6 h-6 text-gray-600 absolute left-3 hidden md:block" />
             <input
               type="text"
               value={searchQuery}
@@ -191,10 +200,22 @@ function Navbar() {
   )}
 </Link>
 
-              <CiHeart className="w-6 h-6" />
+
+              {/* <CgProfile className="w-8 h-8 text" />
               <SignedIn>
             <UserButton />
-          </SignedIn>
+          </SignedIn> */}
+
+
+<div className="flex items-center gap-4">
+  <SignedOut>
+    <CgProfile className="w-8 h-8" />
+  </SignedOut>
+  <SignedIn>
+    <UserButton />
+  </SignedIn>
+</div>
+
             </div>
           </div>
         </div>

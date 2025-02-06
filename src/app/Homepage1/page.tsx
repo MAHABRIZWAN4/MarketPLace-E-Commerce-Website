@@ -18,7 +18,7 @@ export default function Home() {
     {/* Section 1 */}
    <div className='mx-3 bg-[#F2F0F1] flex flex-col md:flex md:flex-row items-center justify-between '>
     <div>
-        <h1 className='font-extrabold text-[35px] md:text-[64px] w-[20rem] md:leading-[64px] md:w-[35rem] '>FIND CLOTHES THAT MATCHES YOUR STYLE</h1>
+        <h1 className='font-extrabold text-[35px] mt-8 md:mt-0 md:text-[64px] w-[20rem] md:leading-[64px] md:w-[35rem] '>FIND CLOTHES THAT MATCHES YOUR STYLE</h1>
         <p className='text-stone-500 w-[20rem] md:w-[35rem] mt-8' >Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.</p>
         <Link href="/cart">
         <button className='w-[20rem] h-[3rem] md:w-[11rem] md:h-[3rem] mt-8 bg-black rounded-[50px] text-white flex items-center justify-center'>Shop Now</button>
