@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { RootState } from "@/app/(AddToCartFunctunality)/redux/store";
 import { useState } from "react";
 import Link from "next/link";
-import { client } from "@/lib/sanity"; // Update import path
+
 import Swal from "sweetalert2";
 
 export default function CheckoutPage() {
