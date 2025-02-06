@@ -5,20 +5,8 @@ import toast from "react-hot-toast";
 import { RootState } from "@/app/(AddToCartFunctunality)/redux/store";
 import { useState } from "react";
 import Link from "next/link";
-
+import { client } from "@/lib/sanity"; // Update import path
 import Swal from "sweetalert2";
-
-
-import { createClient } from '@sanity/client';
-
-
-export const client = createClient({
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
-  useCdn: false,
-  apiVersion: '2023-01-01',
-  token: process.env.SANITY_API_TOKEN, // Ensure this is added!
-});
 
 export default function CheckoutPage() {
 
