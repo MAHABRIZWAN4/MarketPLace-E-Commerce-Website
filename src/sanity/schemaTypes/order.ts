@@ -1,5 +1,3 @@
-import { Layout } from "lucide-react";
-import { title } from "process";
 
 
 export default {

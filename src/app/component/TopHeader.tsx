@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
+import {  SignedOut, SignInButton  } from "@clerk/clerk-react";
 import { RiCloseLargeFill } from "react-icons/ri";
 
 function TopHeader() {

@@ -219,6 +219,7 @@ const handlePlaceOrder = async () => {
             throw new Error('Failed to create order');
           }
         } catch (err) {
+          console.error(err); // Error console me print hoga
           Swal.fire(
             "Error!",
             "Please fill all fields correctly.",
