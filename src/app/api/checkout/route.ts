@@ -51,8 +51,8 @@ export const POST = async (request: Request) => {
       payment_method_types: ['card'], // Remove this line
       line_items: stripeProducts,
       mode: 'payment',
-      success_url: `https://market-place-e-commerce-website-4.vercel.app/success`,
-      cancel_url: `https://market-place-e-commerce-website-4.vercel.app/`,
+      success_url: `https://marketplace-e-commerce-website-46.vercel.app/success`,
+      cancel_url: `https://marketplace-e-commerce-website-46.vercel.app/`,
     });
 
     return NextResponse.json({ url: session.url });
