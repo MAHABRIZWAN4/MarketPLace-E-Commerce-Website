@@ -174,7 +174,7 @@ const handlePlaceOrder = async () => {
           cartItems: cartItems.map((item) => ({
             _key: item._id,
             _type: "reference",
-            _ref: item.id,
+            _ref: item._id,
           })),
         };
 
@@ -234,7 +234,7 @@ const handlePlaceOrder = async () => {
             <div className=" rounded-sm p-4 sm:p-6 space-y-4 w-full">
               <h2 className="text-lg sm:text-xl lg:text-3xl font-bold mb-4 ">Order Summary</h2>
               {cartItems.map((item, index) => (
-                <div key={item.id || index} className="flex items-center gap-4 py-3 border-b">
+                <div key={item._id || index} className="flex items-center gap-4 py-3 border-b">
                   <div className="w-16 h-16 overflow-hidden rounded">
                     <Image
                       src={item.imageUrl}

@@ -2,9 +2,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 //interface for cart item
 interface CartItem {
-  _id: string; // Sanity document ID
-  name: string | number;
-  id: string;
+  _id: string;
+  name: string;
   title: string;
   price: number;
   imageUrl: string;
@@ -27,9 +26,9 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action: PayloadAction<CartItem>) => {
-      const { id, color, size } = action.payload;
+      const { _id, color, size } = action.payload;
       const existingItem = state.items.find(
-        (item) => item.id === id && item.color === color && item.size === size
+        (item) => item._id === _id && item.color === color && item.size === size
       );
 
       if (existingItem) {
@@ -39,16 +38,16 @@ const cartSlice = createSlice({
       }
     },
     remove: (state, action: PayloadAction<string>) => {
-      state.items = state.items.filter(item => item.id !== action.payload);
+      state.items = state.items.filter(item => item._id !== action.payload);
     },
     incrementQuantity: (state, action: PayloadAction<string>) => {
-      const itemIndex = state.items.findIndex(item => item.id === action.payload);
+      const itemIndex = state.items.findIndex(item => item._id === action.payload);
       if (itemIndex >= 0) {
         state.items[itemIndex].quantity += 1;
       }
     },
     decrementQuantity: (state, action: PayloadAction<string>) => {
-      const itemIndex = state.items.findIndex(item => item.id === action.payload);
+      const itemIndex = state.items.findIndex(item => item._id === action.payload);
       if (itemIndex >= 0 && state.items[itemIndex].quantity > 1) {
         state.items[itemIndex].quantity -= 1;
       }
