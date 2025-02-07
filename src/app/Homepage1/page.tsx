@@ -67,7 +67,7 @@ export default function Home() {
         <div className="p-4 bg-white rounded-2xl shadow-md">
           <h3 className="text-2xl font-bold text-gray-800">
             {mobileInView ? (
-              <CountUp start={0} end={200} duration={2} suffix="+" />
+              <ClientCountUp start={0} end={200}  suffix="+" />
             ) : '0+'}
           </h3>
           <p className="text-gray-600">International Brands</p>
@@ -76,7 +76,7 @@ export default function Home() {
         <div className="p-4 bg-white rounded-2xl shadow-md">
           <h3 className="text-2xl font-bold text-gray-800">
             {mobileInView ? (
-              <CountUp start={0} end={2000} duration={2} suffix="+" />
+              <ClientCountUp start={0} end={2000}  suffix="+" />
             ) : '0+'}
           </h3>
           <p className="text-gray-600">Premium Products</p>
@@ -85,7 +85,7 @@ export default function Home() {
         <div className="col-span-2 p-4 bg-white rounded-2xl shadow-md">
           <h3 className="text-2xl font-bold text-gray-800">
             {mobileInView ? (
-              <CountUp start={0} end={3000} duration={2} suffix="+" />
+              <ClientCountUp start={0} end={3000}  suffix="+" />
             ) : '0+'}
           </h3>
           <p className="text-gray-600">Happy Customers</p>
@@ -119,13 +119,13 @@ export default function Home() {
   </div>
   <div className="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
     <h3 className="text-3xl font-bold text-gray-800">
-      {inView ? <CountUp start={0} end={2000} duration={2} suffix="+" /> : '0+'}
+    {inView ? <ClientCountUp start={0} end={2000} suffix="+" /> : '0+'}
     </h3>
     <p className="text-gray-600 mt-2">Premium Products</p>
   </div>
   <div className="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
     <h3 className="text-3xl font-bold text-gray-800">
-      {inView ? <CountUp start={0} end={3000} duration={2} suffix="+" /> : '0+'}
+      {inView ? <ClientCountUp start={0} end={3000} suffix="+" /> : '0+'}
     </h3>
     <p className="text-gray-600 mt-2">Happy Customers</p>
   </div>
