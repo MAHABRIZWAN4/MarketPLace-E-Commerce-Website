@@ -59,7 +59,7 @@ export default function Post() {
         color: selectedColor,
         size: selectedSize,
         discountPercent: post.discountPercent,
-        
+        id: ""
       }));
   
       alert(`${post.name} has been added to the cart!`);

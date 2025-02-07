@@ -167,14 +167,14 @@ const handlePlaceOrder = async () => {
           address: formValues.address,
           email: formValues.email,
           phone: formValues.phone,
-          // zipcode: formValues.zipCode,
+          zipcode: formValues.zipCode,
           city: formValues.city,
           total: total,
           discount: discount,
-          cartItems: cartItems.map((item) => ({
-            _key: item._id,
+          cartItems: cartItems.map((items) => ({
+            _key: items._id,
             _type: "reference",
-            _ref: item._id,
+            _ref: items._id,
           })),
         };
 
@@ -191,17 +191,29 @@ const handlePlaceOrder = async () => {
             localStorage.removeItem("appliedDiscount");
 
             // New SweetAlert for Pay With Stripe
-            Swal.fire({
+            // const {isConfirmed} = await Swal.fire({
+            //   title: "Order Ready!",
+            //   text: "Click below to pay with Stripe",
+            //   icon: "success",
+            //   confirmButtonColor: "#3085d6",
+            //   confirmButtonText: "Pay With Stripe",
+            // }).then((stripeResult) => {
+            //   if (isConfirmed) {
+            //     handleCheckout();
+            //   }
+
+            const { isConfirmed } = await Swal.fire({
               title: "Order Ready!",
               text: "Click below to pay with Stripe",
               icon: "success",
               confirmButtonColor: "#3085d6",
               confirmButtonText: "Pay With Stripe",
-            }).then((stripeResult) => {
-              if (stripeResult.isConfirmed) {
-                handleCheckout();
-              }
             });
+            
+            if (isConfirmed) {
+              handleCheckout();
+            }
+            
 
           } else {
             throw new Error('Failed to create order');
@@ -351,7 +363,7 @@ const handlePlaceOrder = async () => {
               </div>
 
               {/* ZIP CODE */}
-              {/* <div className="flex flex-col">
+               <div className="flex flex-col">
                 <label htmlFor="zipCode" className="font-medium text-gray-700">Zip-Code</label>
                 <input 
                   type="text" // Change input type to text
@@ -362,7 +374,7 @@ const handlePlaceOrder = async () => {
                   className="border-2 border-gray-300 focus:ring focus:ring-blue-400 w-full text-center rounded-lg px-4 py-2 transition-all duration-300 outline-none focus:scale-105"
                 />
                 {formErrors.zipCode && <p className="text-red-500 text-xs">{formErrors.zipCode}</p>}
-              </div> */}
+              </div> 
 
               {/* CITY */}
               <div className="flex flex-col">
