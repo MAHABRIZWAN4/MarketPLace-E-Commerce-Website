@@ -217,8 +217,6 @@
 
 
 
-
-
 "use client";
 import React, { useState, useEffect } from "react";
 import { IoSearchOutline } from "react-icons/io5";
@@ -266,43 +264,70 @@ function Navbar() {
     setSearchQuery(value);
     if (value) {
       setSearchResults(products.filter(product => product.name.toLowerCase().includes(value)));
-      setShowSearchResults(true);
     } else {
       setSearchResults([]);
-      setShowSearchResults(false);
     }
+    setShowSearchResults(!!value);
+  };
+
+  const closeSearchResults = () => {
+    setShowSearchResults(false);
+    setSearchQuery("");
   };
 
   return (
     <div className="bg-white shadow-sm">
       <header className="max-w-7xl mx-auto relative z-20">
         <div className="flex items-center justify-between h-20 px-4 sm:px-6 lg:px-8">
+          <div className="lg:hidden">
+            <Sheet>
+              <SheetTrigger className="p-2 hover:bg-gray-50 rounded-lg transition-colors">
+                <LucideMenu className="w-6 h-6 text-gray-700" />
+              </SheetTrigger>
+              <SheetContent side="left" className="w-[300px]">
+                <SheetHeader>
+                  <SheetTitle className="text-xl font-semibold text-gray-900">Menu</SheetTitle>
+                </SheetHeader>
+                <nav className="mt-8 space-y-4">
+                  <Link href="/" className="block text-gray-700 hover:text-blue-600 transition-colors">
+                    Shop
+                  </Link>
+                  <Link href="/Homepage4" className="block text-gray-700 hover:text-blue-600 transition-colors">
+                    On Sale
+                  </Link>
+                  <Link href="/Homepage3" className="block text-gray-700 hover:text-blue-600 transition-colors">
+                    New Arrivals
+                  </Link>
+                  <Link href="/category" className="block text-gray-700 hover:text-blue-600 transition-colors">
+                    Brands
+                  </Link>
+                  <SignedOut>
+                    <SignInButton>
+                      <button className="w-full text-left px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+                        Sign In
+                      </button>
+                    </SignInButton>
+                  </SignedOut>
+                </nav>
+              </SheetContent>
+            </Sheet>
+          </div>
           <Link href="/" className="text-2xl font-bold text-gray-900 hover:text-blue-600 transition-colors">
             Shop.Co
           </Link>
-
-          <div className="flex items-center gap-6">
-            <div className="relative hidden md:block">
-              <IoSearchOutline className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={handleSearchChange}
-                placeholder="Search products..."
-                className="w-64 pl-10 pr-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-            <Link href="/cart" className="relative p-2">
-              <MdOutlineShoppingCart className="w-6 h-6 text-gray-700" />
-              {totalQuantity > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs min-w-[20px] h-5 flex items-center justify-center rounded-full">
-                  {totalQuantity}
-                </span>
-              )}
+          <nav className="hidden lg:flex space-x-8">
+            <Link href="/" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+              Shop
             </Link>
-            <SignedIn>
-              <UserButton appearance={{ elements: { userButtonAvatarBox: "w-8 h-8" } }} />
-            </SignedIn>
+            <Link href="/Homepage4" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+              On Sale
+            </Link>
+            <Link href="/Homepage3" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+              New Arrivals
+            </Link>
+            <Link href="/category" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+              Brands
+            </Link>
             <SignedOut>
               <SignInButton>
                 <button className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
@@ -310,7 +335,7 @@ function Navbar() {
                 </button>
               </SignInButton>
             </SignedOut>
-          </div>
+          </nav>
         </div>
       </header>
     </div>
