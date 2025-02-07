@@ -1,29 +1,25 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { IoSearchOutline } from "react-icons/io5";
-import {  MdOutlineShoppingCart } from "react-icons/md";
-
+import { MdOutlineShoppingCart } from "react-icons/md";
 import { Menu as LucideMenu } from "lucide-react";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { allproducts } from "@/sanity/lib/queries";
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { CgProfile } from "react-icons/cg";
-
-import {  SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
 import Image from "next/image";
 
-// Define Product type
 interface Product {
   _id: string;
   name: string;
   price: number;
-  imageUrl: string; // Add your image property here
+  imageUrl: string;
   tags: string[];
 }
 
-// Redux state type
 interface RootState {
   cart: { items: { quantity: number }[] };
 }
@@ -31,7 +27,6 @@ interface RootState {
 function Navbar() {
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const totalQuantity = cartItems.reduce((acc, item) => acc + item.quantity, 0);
-
   const [searchQuery, setSearchQuery] = useState("");
   const [products, setProducts] = useState<Product[]>([]);
   const [searchResults, setSearchResults] = useState<Product[]>([]);
@@ -48,16 +43,8 @@ function Navbar() {
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.toLowerCase();
     setSearchQuery(value);
-
-    if (value) {
-      const filteredProducts = products.filter((product) =>
-        product.name.toLowerCase().includes(value)
-      );
-      setSearchResults(filteredProducts);
-      setShowSearchResults(true);
-    } else {
-      setShowSearchResults(false);
-    }
+    value ? setSearchResults(products.filter(product => product.name.toLowerCase().includes(value))) : setSearchResults([]);
+    setShowSearchResults(!!value);
   };
 
   const closeSearchResults = () => {
@@ -66,204 +53,154 @@ function Navbar() {
   };
 
   return (
-    <div>
-      <header className="max-w-7xl mx-auto body-font relative z-20">
-        <div className="flex bg-white items-center justify-between h-20 mx-5 lg:mx-8">
-          {/* Move SheetTrigger (Menu Bar) here */}
+    <div className="bg-white shadow-sm">
+      <header className="max-w-7xl mx-auto relative z-20">
+        <div className="flex items-center justify-between h-20 px-4 sm:px-6 lg:px-8">
+          {/* Mobile Menu */}
           <div className="lg:hidden">
             <Sheet>
-              <SheetTrigger>
-                <LucideMenu className="mt-2" />
+              <SheetTrigger className="p-2 hover:bg-gray-50 rounded-lg transition-colors">
+                <LucideMenu className="w-6 h-6 text-gray-700" />
               </SheetTrigger>
-              <SheetContent>
+              <SheetContent side="left" className="w-[300px]">
                 <SheetHeader>
-                  <SheetTitle className="text-2xl">MENU</SheetTitle>
-                  <SheetDescription className="text-xl">Click outside to close</SheetDescription>
+                  <SheetTitle className="text-xl font-semibold text-gray-900">Menu</SheetTitle>
                 </SheetHeader>
-                <ul className="flex flex-col gap-10 mt-14">
-                  <li className="text-xl">
-                    <Link
-                      href="/"
-                      className="gap-1 hover:text-gray-900 hover:cursor-pointer hover:underline"
-                    >
-                      Shop
-                    </Link>
-                  </li>
-                  <li className="text-xl">
-                    <Link
-                      href="/"
-                      className="hover:text-gray-900 hover:cursor-pointer hover:underline"
-                    >
-                       On Sale
-                    </Link>
-                  </li>
-                  <li className="text-xl">
-                    <Link
-                      href="/Homepage3"
-                      className="mr-5 hover:text-gray-900 hover:cursor-pointer hover:underline"
-                    >
-                      New Arrival
-                    </Link>
-                  </li>
-                  <li className="text-xl">
-                    <Link
-                      href="/category"
-                      className="mr-5 hover:text-gray-900 hover:cursor-pointer hover:underline"
-                    >
-                      Brands
-                    </Link>
-                  </li>
-
-
-<li className="bg-blue-600 text-white w-20 px-3 h-8 rounded-md text-lg"><SignedOut>
-            <SignInButton />
-          </SignedOut></li>
-                  
-
-
-                </ul>
-                
-          
+                <nav className="mt-8 space-y-4">
+                  <Link href="/" className="block text-gray-700 hover:text-blue-600 transition-colors">
+                    Shop
+                  </Link>
+                  <Link href="/Homepage4" className="block text-gray-700 hover:text-blue-600 transition-colors">
+                    On Sale
+                  </Link>
+                  <Link href="/Homepage3" className="block text-gray-700 hover:text-blue-600 transition-colors">
+                    New Arrivals
+                  </Link>
+                  <Link href="/category" className="block text-gray-700 hover:text-blue-600 transition-colors">
+                    Brands
+                  </Link>
+                  <SignedOut>
+                    <li className="list-none">
+                      <SignInButton>
+                        <button className="w-full text-left px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+                          Sign In
+                        </button>
+                      </SignInButton>
+                    </li>
+                  </SignedOut>
+                </nav>
               </SheetContent>
             </Sheet>
-
-
-            
-           
           </div>
 
-
-
-
-          <h1 className="text-[28px] lg:text-[35px] sm:text-[35px] ml-6 sm:text-center font-extrabold">
+          {/* Logo */}
+          <Link href="/" className="text-2xl font-bold text-gray-900 hover:text-blue-600 transition-colors">
             Shop.Co
-          </h1>
-          {/* Navigation for Larger Screens */}
-          <nav className="hidden lg:flex gap-[20px] ml-6 lg:text-lg">
-            <Link
-              href="/"
-              className="mr-5 flex items-center justify-center gap-1 hover:text-gray-900 hover:cursor-pointer hover:underline"
-            >
+          </Link>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex space-x-8">
+            <Link href="/" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
               Shop
             </Link>
-            <Link
-              href="/Homepage4"
-              className="mr-5 hover:text-gray-900 hover:cursor-pointer hover:underline"
-            >
+            <Link href="/Homepage4" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
               On Sale
             </Link>
-            <Link
-              href="/Homepage3"
-              className="mr-5 hover:text-gray-900 hover:cursor-pointer hover:underline"
-            >
-              New Arrival
+            <Link href="/Homepage3" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+              New Arrivals
             </Link>
-            <Link
-              href="/category"
-              className="mr-5 hover:text-gray-900 hover:cursor-pointer hover:underline"
-            >
+            <Link href="/category" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
               Brands
             </Link>
-          
             <SignedOut>
             <SignInButton />
           </SignedOut>
-            
           </nav>
 
-          <div className="flex items-center relative">
-            <IoSearchOutline className="w-6 h-6 text-gray-600 absolute left-3 hidden md:block" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={handleSearchChange}
-              placeholder="Search for products..."
-              className="hidden md:block md:w-[300px] lg:w-[400px] h-[40px] rounded-full pl-10 pr-4 bg-gray-100 border border-gray-300 focus:outline-none focus:ring focus:ring-gray-400"
-            />
-            <div className="flex items-center gap-4 ml-4">
-            <Link href="/cart" className="relative">
-  <MdOutlineShoppingCart className="w-8 h-10" />
-  {totalQuantity > 0 && (
-    <span
-      className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full flex items-center justify-center"
-      style={{
-        width: totalQuantity > 99 ? '1.2rem' : '1rem',
-        height: totalQuantity > 99 ? '1.2rem' : '1rem',
-        fontSize: totalQuantity > 99 ? '0.75rem' : '0.5rem',
-      }}
-    >
-      {totalQuantity}
-    </span>
-  )}
-</Link>
+          {/* Right Section */}
+          <div className="flex items-center gap-6">
+            {/* Search Bar */}
+            <div className="relative hidden md:block">
+              <IoSearchOutline className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={handleSearchChange}
+                placeholder="Search products..."
+                className="w-64 pl-10 pr-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+              />
+            </div>
 
+            {/* Cart & Profile */}
+            <div className="flex items-center gap-4">
+              <Link href="/cart" className="relative p-2 hover:bg-gray-50 rounded-lg transition-colors">
+                <MdOutlineShoppingCart className="w-6 h-6 text-gray-700" />
+                {totalQuantity > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs min-w-[20px] h-5 flex items-center justify-center rounded-full">
+                    {totalQuantity}
+                  </span>
+                )}
+              </Link>
 
-              {/* <CgProfile className="w-8 h-8 text" />
-              <SignedIn>
-            <UserButton />
-          </SignedIn> */}
-
-
-<div className="flex items-center gap-4">
-  <SignedOut>
-    <CgProfile className="w-8 h-8" />
-  </SignedOut>
-  <SignedIn>
-    <UserButton />
-  </SignedIn>
-</div>
-
+              <div className="p-2 hover:bg-gray-50 rounded-lg transition-colors">
+                <SignedIn>
+                  <UserButton appearance={{
+                    elements: {
+                      userButtonAvatarBox: "w-8 h-8",
+                    }
+                  }} />
+                </SignedIn>
+                <SignedOut>
+                  <CgProfile className="w-6 h-6 text-gray-700" />
+                </SignedOut>
+              </div>
             </div>
           </div>
         </div>
 
+        {/* Search Results */}
+        {showSearchResults && (
+          <div className="fixed inset-0 bg-black/30 z-50 flex justify-center items-start pt-20">
+            <div className="bg-white w-full max-w-2xl max-h-[60vh] rounded-xl shadow-xl overflow-hidden">
+              <div className="flex justify-between items-center p-4 border-b">
+                <h3 className="font-semibold text-gray-900">Search Results</h3>
+                <button
+                  onClick={closeSearchResults}
+                  className="text-gray-500 hover:text-gray-700 transition-colors"
+                >
+                  ✕
+                </button>
+              </div>
+              <div className="overflow-y-auto">
+                {searchResults.length > 0 ? (
+                  searchResults.map((product) => (
+                    <Link
+                      key={product._id}
+                      href={`/product/${product._id}`}
+                      className="flex items-center p-4 hover:bg-gray-50 transition-colors border-b"
+                    >
+                      <Image
+                        src={product.imageUrl}
+                        alt={product.name}
+                        width={64}
+                        height={64}
+                        className="w-16 h-16 object-cover rounded-lg"
+                      />
+                      <div className="ml-4">
+                        <h4 className="font-medium text-gray-900">{product.name}</h4>
+                        <p className="text-gray-600">${product.price.toFixed(2)}</p>
+                      </div>
+                    </Link>
+                  ))
+                ) : (
+                  <p className="p-4 text-gray-500">No products found</p>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       </header>
-
-      {/* Overlay Search Results */}
-      {showSearchResults && (
-        <div className="fixed inset-0 bg-black bg-opacity-30 z-30 flex items-start justify-center mt-8 ">
-          <div className="bg-white w-[90%] md:w-[70%] lg:w-[50%] max-h-[70%] mt-20 rounded-lg shadow-lg overflow-auto">
-            <div className="flex justify-between items-center p-4 border-b">
-              <h2 className="text-lg font-bold">Search Results</h2>
-              <button
-                onClick={closeSearchResults}
-                className="text-gray-500 hover:text-gray-700"
-              >
-                Close
-              </button>
-            </div>
-            <ul className="p-4">
-              {searchResults.length > 0 ? (
-                searchResults.map((product) => (
-                  <li key={product._id} className="flex items-center gap-4 py-2 border-b">
-                    <Image
-                      src={product.imageUrl}
-                      alt={product.name}
-                      width={100}
-                      height={100}
-                      className="w-16 h-16 object-cover rounded"
-                    />
-                    <div>
-                      <Link
-                        href={`/product/${product._id}`}
-                        className="text-blue-500 hover:underline font-medium"
-                      >
-                        {product.name}
-                      </Link>
-                      <p className="text-gray-600">${product.price}</p>
-                    </div>
-                  </li>
-                ))
-              ) : (
-                <p className="text-gray-500 text-center">No results found.</p>
-              )}
-            </ul>
-          </div>
-        </div>
-      )}
-
     </div>
-   
   );
 }
 

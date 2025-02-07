@@ -1,60 +1,135 @@
-
-
 import Image from "next/image";
 import Link from "next/link";
+import CountUp from 'react-countup';
+import { useInView } from 'react-intersection-observer';
+
+
 export default function Home() {
+
+    const { ref, inView } = useInView({
+        triggerOnce: true,
+        threshold: 0.3,
+      });
+
+      const { ref: mobileRef, inView: mobileInView } = useInView({
+        triggerOnce: true,
+        threshold: 0.1,
+        rootMargin: '-50px 0px'
+      });
+
   return (
+    <div className="bg-[#F2F0F1] min-h-screen">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Hero Section */}
+        <div className="flex flex-col md:flex-row items-center justify-between py-12 md:py-24">
+          {/* Text Content */}
+          <div className="md:w-1/2 mb-12 md:mb-0 space-y-8 transform transition-all duration-500 hover:scale-105">
+            <h1 className="font-extrabold text-4xl md:text-6xl leading-tight bg-gradient-to-r from-gray-700 to-gray-950 bg-clip-text text-transparent animate-slideInLeft">
+              Find Clothes That Match Your Style
+            </h1>
+            
+            <p className="text-gray-600 text-lg md:text-xl leading-relaxed animate-fadeIn delay-100">
+           <span className="inline"> Explore our curated collection of premium apparel crafted to celebrate your unique identity. Each piece combines innovative tailoring with sustainable, high-quality fabrics that adapt to modern lifestyles.</span>
+            <span className=" hidden md:inline">From versatile everyday essentials to statement-making designs, discover silhouettes that flatter all body types with artisanal precision. </span> 
+            </p>
+            
+            <Link href="/cart" className="inline-block animate-bounce">
+              <button className="w-full md:w-auto px-12 py-4 bg-black hover:bg-gray-900 rounded-full text-white font-medium transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                Shop Now
+              </button>
+            </Link>
 
-   <div className=''>
+            {/* Mobile Stats */}
+            {/* <div className="md:hidden grid grid-cols-2 gap-6 mt-12 animate-fadeInUp" ref={ref}>
+  <div className="p-4 bg-white rounded-2xl shadow-md">
+    <h3 className="text-2xl font-bold text-gray-800">
+      {inView ? <CountUp start={0} end={200} duration={2} suffix="+" /> : '0+'}
+    </h3>
+    <p className="text-gray-600">International Brands</p>
+  </div>
+  <div className="p-4 bg-white rounded-2xl shadow-md">
+    <h3 className="text-2xl font-bold text-gray-800">
+      {inView ? <CountUp start={0} end={2000} duration={2} suffix="+" /> : '0+'}
+    </h3>
+    <p className="text-gray-600">Premium Products</p>
+  </div>
+  <div className="col-span-2 p-4 bg-white rounded-2xl shadow-md">
+    <h3 className="text-2xl font-bold text-gray-800">
+      {inView ? <CountUp start={0} end={3000} duration={2} suffix="+" /> : '0+'}
+    </h3>
+    <p className="text-gray-600">Happy Customers</p>
+  </div>
+</div> */}
 
 
-
-
-
-<div className="bg-[#F2F0F1]">
-
-
-<div className='max-w-7xl mx-auto bg-[#F2F0F1]'>
-    {/* Section 1 */}
-   <div className='mx-3 bg-[#F2F0F1] flex flex-col md:flex md:flex-row items-center justify-between '>
-    <div>
-        <h1 className='font-extrabold text-[35px] mt-8 md:mt-0 md:text-[64px] w-[20rem] md:leading-[64px] md:w-[35rem] '>FIND CLOTHES THAT MATCHES YOUR STYLE</h1>
-        <p className='text-stone-500 w-[20rem] md:w-[35rem] mt-8' >Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.</p>
-        <Link href="/cart">
-        <button className='w-[20rem] h-[3rem] md:w-[11rem] md:h-[3rem] mt-8 bg-black rounded-[50px] text-white flex items-center justify-center'>Shop Now</button>
-        </Link>
-        <div className='md:hidden flex items-center text-center justify-center gap-3 py-5'>
-            <div className='flex flex-col items-center justify-center'>
-                <h1 className='text-[24px] font-bold'>200+</h1>
-                <p>International Brands</p>
-            </div>
-            <div className='border-l-2 h-16'></div>
-            <div className='flex flex-col items-center justify-center'>
-                <h1 className='text-[24px] font-bold'>2,000+</h1>
-                <p>High-Quality Products</p>
-            </div>
+<div ref={mobileRef} className="md:hidden grid grid-cols-2 gap-6 mt-12 animate-fadeInUp">
+        <div className="p-4 bg-white rounded-2xl shadow-md">
+          <h3 className="text-2xl font-bold text-gray-800">
+            {mobileInView ? (
+              <CountUp start={0} end={200} duration={2} suffix="+" />
+            ) : '0+'}
+          </h3>
+          <p className="text-gray-600">International Brands</p>
         </div>
-            <div className='md:hidden flex flex-col items-center justify-center py-6'>
-                <h1 className='text-[24px] font-bold'>3,000+</h1>
-                <p>Happy Customers</p>
+        
+        <div className="p-4 bg-white rounded-2xl shadow-md">
+          <h3 className="text-2xl font-bold text-gray-800">
+            {mobileInView ? (
+              <CountUp start={0} end={2000} duration={2} suffix="+" />
+            ) : '0+'}
+          </h3>
+          <p className="text-gray-600">Premium Products</p>
+        </div>
+        
+        <div className="col-span-2 p-4 bg-white rounded-2xl shadow-md">
+          <h3 className="text-2xl font-bold text-gray-800">
+            {mobileInView ? (
+              <CountUp start={0} end={3000} duration={2} suffix="+" />
+            ) : '0+'}
+          </h3>
+          <p className="text-gray-600">Happy Customers</p>
+        </div>
+      </div>
+          </div>
+
+          {/* Image Container */}
+          <div className="md:w-1/2 flex justify-end relative group animate-slideInRight">
+            <div className="relative overflow-hidden rounded-3xl shadow-2xl transform transition-all duration-500 group-hover:scale-105">
+              <Image 
+                src="/home.png" 
+                alt="Fashion showcase" 
+                width={600}
+                height={800}
+                className="object-cover object-center"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
+          </div>
+        </div>
 
+        {/* Desktop Stats */}
+        <div className="hidden md:flex justify-center gap-12 mt-16 animate-fadeInUp delay-300" ref={ref}>
+  <div className="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+    <h3 className="text-3xl font-bold text-gray-800">
+      {inView ? <CountUp start={0} end={200} duration={2} suffix="+" /> : '0+'}
+    </h3>
+    <p className="text-gray-600 mt-2">International Brands</p>
+  </div>
+  <div className="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+    <h3 className="text-3xl font-bold text-gray-800">
+      {inView ? <CountUp start={0} end={2000} duration={2} suffix="+" /> : '0+'}
+    </h3>
+    <p className="text-gray-600 mt-2">Premium Products</p>
+  </div>
+  <div className="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+    <h3 className="text-3xl font-bold text-gray-800">
+      {inView ? <CountUp start={0} end={3000} duration={2} suffix="+" /> : '0+'}
+    </h3>
+    <p className="text-gray-600 mt-2">Happy Customers</p>
+  </div>
+</div>
+      </div>
     </div>
-    <div>
-        <Image src="/home.png" alt='image' width={200} height={200} className='w-[370px] h-[448px]' />            
-   </div>
-   </div>
-   
-
-
-
-</div>
-</div>
-
-
-</div>
-
   );
 }
-
-

@@ -212,5 +212,3 @@ const Cartpage: React.FC = () => {
 };
 
 export default Cartpage;
-
-

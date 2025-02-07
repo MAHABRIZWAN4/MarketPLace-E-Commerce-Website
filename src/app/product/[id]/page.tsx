@@ -50,7 +50,7 @@ export default function Post() {
   const handleAddToCart = () => {
     if (post && selectedColor && selectedSize) {
       dispatch(addToCart({
-        _id: post._id,  
+        _id: post._id,
         name: post.name,
         title: post.name,
         price: post.price,
@@ -59,6 +59,7 @@ export default function Post() {
         color: selectedColor,
         size: selectedSize,
         discountPercent: post.discountPercent,
+        
       }));
   
       alert(`${post.name} has been added to the cart!`);
@@ -76,10 +77,25 @@ export default function Post() {
     ));
   };
 
+  // if (!post) {
+  //   return <h1 className="text-2xl font-bold text-center mt-10">Wait A Minute..</h1>;
+  // }
   if (!post) {
-    return <h1 className="text-2xl font-bold text-center mt-10">Wait A Minute..</h1>;
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen gap-4">
+        {/* Progress Bar */}
+        <div className="w-48 h-2 bg-gray-200 rounded-full overflow-hidden">
+          <div className="h-full bg-blue-600 animate-progress"></div>
+        </div>
+        
+        {/* Loading Text */}
+        <span className="text-lg font-medium text-gray-600 animate-pulse">
+          Loading Product Details...
+        </span>
+      </div>
+    );
   }
-
+  
   return (
     <main>
       <div className="max-w-5xl mx-auto mt-11">
@@ -97,7 +113,7 @@ export default function Post() {
           )}
 
           {/* Product Details Section */}
-          <div className="mt-6 text-lg text-slate-700 w-full max-w-[600px]">
+          <div className="mt-6 text-lg text-slate-700 w-full max-w-[600px] px-4 md:px-0">
             <h1 className="text-2xl sm:text-3xl md:text-[32px] lg:text-[40px] font-extrabold text-black">
               {post.name}
             </h1>
@@ -164,7 +180,7 @@ export default function Post() {
             {/* Add to Cart Button */}
             <button
               onClick={handleAddToCart}
-              className="px-4 py-2 mt-6 bg-black text-white rounded-[50px] md:w-[300px] hover:bg-gray-800 transition"
+              className="px-4 py-2 mt-6 bg-black text-white rounded-[50px] w-[250px] md:w-[300px] hover:bg-gray-800 transition"
             >
               Add to Cart
             </button>

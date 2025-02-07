@@ -392,7 +392,3 @@ const handlePlaceOrder = async () => {
     </div>
   );
 }
-
-
-
-

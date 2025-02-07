@@ -10,10 +10,10 @@ export default function Homepage6() {
       {/* heading div */}
       <div className='flex flex-col sm:flex-row justify-between items-center'>
         <h1 className="text-[30px] sm:text-[48px] font-extrabold text-center sm:text-left">OUR HAPPY CUSTOMERS</h1>
-        <div className='font-bold flex gap-4 mt-6 sm:mt-0'>
+        {/* <div className='font-bold flex gap-4 mt-6 sm:mt-0'>
           <div><GoArrowLeft className='h-[24px] text-2xl' /></div>
           <div><GoArrowRight className='h-[24px] text-2xl' /></div>
-        </div>
+        </div> */}
       </div>
 
       {/* div for boxes */}
