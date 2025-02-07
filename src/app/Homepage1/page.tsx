@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import CountUp from 'react-countup';
+
 import { useInView } from 'react-intersection-observer';
 import ClientCountUp from "../component/ClientCountUp";
 
