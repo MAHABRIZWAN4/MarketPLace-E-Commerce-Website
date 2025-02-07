@@ -43,7 +43,11 @@ function Navbar() {
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.toLowerCase();
     setSearchQuery(value);
-    value ? setSearchResults(products.filter(product => product.name.toLowerCase().includes(value))) : setSearchResults([]);
+    if (value) {
+      setSearchResults(products.filter(product => product.name.toLowerCase().includes(value)));
+    } else {
+      setSearchResults([]);
+    }
     setShowSearchResults(!!value);
   };
 
