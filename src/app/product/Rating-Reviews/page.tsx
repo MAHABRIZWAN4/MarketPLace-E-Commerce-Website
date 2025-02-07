@@ -1,5 +1,5 @@
 
-
+'use client';
  import React, { useState } from "react";
  import { FaStar, FaCheckCircle, FaStarHalf } from "react-icons/fa";
  import Image from "next/image"
