@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 
 interface ReduxCartItem {
-  id: string;
+  _id: string;
   name: string;
   price: number;
   imageUrl: string;
@@ -23,7 +23,7 @@ interface ReduxCartItem {
 }
 
 interface CartItem {
-  id: string;
+  _id: string;
   name: string;
   price: number;
   imageUrl: string;
@@ -37,16 +37,16 @@ const Cartpage: React.FC = () => {
   const dispatch = useDispatch();
   const cartItems: ReduxCartItem[] = useSelector((state: RootState) => state.cart.items as unknown as ReduxCartItem[]);
 
-  const handleRemove = (id: string) => {
-    dispatch(remove(id));
+  const handleRemove = (item: ReduxCartItem) => {
+    dispatch(remove({ _id: item._id, color: item.color, size: item.size }));
   };
 
-  const handleIncrement = (id: string) => {
-    dispatch(incrementQuantity(id));
+  const handleIncrement = (item: ReduxCartItem) => {
+    dispatch(incrementQuantity({ _id: item._id, color: item.color, size: item.size }));
   };
 
-  const handleDecrement = (id: string) => {
-    dispatch(decrementQuantity(id));
+  const handleDecrement = (item: ReduxCartItem) => {
+    dispatch(decrementQuantity({ _id: item._id, color: item.color, size: item.size }));
   };
 
   const subtotal = cartItems.reduce(
@@ -76,6 +76,7 @@ const Cartpage: React.FC = () => {
       }
     });
   };
+
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 flex flex-col items-center">
       {/* Breadcrumb */}
@@ -93,7 +94,7 @@ const Cartpage: React.FC = () => {
         <div className="w-full lg:w-2/3 space-y-6">
           {cartItems.map((item: CartItem) => (
             <div
-              key={`${item.id}-${item.color}-${item.size}`}
+              key={`${item._id}-${item.color}-${item.size}`}
               className="flex items-center bg-white shadow-md rounded-lg p-4"
             >
               {/* Image Section */}
@@ -135,21 +136,21 @@ const Cartpage: React.FC = () => {
               <div className="flex flex-col items-center space-y-4">
                 <button
                   className="text-red-500 text-lg hover:text-red-700"
-                  onClick={() => handleRemove(item.id)}
+                  onClick={() => handleRemove(item)}
                 >
                   <FaRegTrashCan />
                 </button>
                 <div className="flex flex-col md:flex md:flex-row items-center border rounded-full bg-gray-200">
                   <button
                     className="px-3 py-1 text-lg font-bold"
-                    onClick={() => handleDecrement(item.id)}
+                    onClick={() => handleDecrement(item)}
                   >
                     -
                   </button>
                   <span className="px-4">{item.quantity}</span>
                   <button
                     className="px-3 py-1 text-lg font-bold"
-                    onClick={() => handleIncrement(item.id)}
+                    onClick={() => handleIncrement(item)}
                   >
                     +
                   </button>
@@ -188,7 +189,7 @@ const Cartpage: React.FC = () => {
               Apply
             </button>
           </div>
-          <button className="w-full bg-black text-white py-3 rounded mt-4 flex items-center justify-center"  onClick={handleProceed}>
+          <button className="w-full bg-black text-white py-3 rounded mt-4 flex items-center justify-center" onClick={handleProceed}>
             Go to Checkout
             <svg
               xmlns="http://www.w3.org/2000/svg"
