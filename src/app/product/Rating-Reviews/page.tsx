@@ -171,12 +171,6 @@ import {  FaRegStar, FaStarHalfAlt } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { useForm, SubmitHandler } from "react-hook-form";
 
-interface ReviewData {
-  star: number;
-  heading: string;
-  paragraph: string;
-  posted: string;
-}
 
 interface FormInputs {
   name: string;
@@ -192,8 +186,8 @@ const Review = () => {
   
   const rating = watch("rating", 0);
 
-  const onSubmit: SubmitHandler<FormInputs> = (data: { name: any; comment: any; rating: number; }) => {
-    const newReview = {
+  const onSubmit: SubmitHandler<FormInputs> = (data) => {
+    const newReview: dataType = {
       star: Array(5).fill(<FaRegStar />),
       check: [<FaCheckCircle key="check1" />],
       heading: data.name,

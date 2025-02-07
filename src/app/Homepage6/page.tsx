@@ -1,5 +1,5 @@
 import React from "react";
-import { GoArrowRight, GoArrowLeft } from "react-icons/go";
+
 import { FaStar, FaCheckCircle } from "react-icons/fa";
 
 export default function Homepage6() {

@@ -113,8 +113,12 @@ function Navbar() {
               Brands
             </Link>
             <SignedOut>
-            <SignInButton />
-          </SignedOut>
+              <SignInButton>
+                <button className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+                  Sign In
+                </button>
+              </SignInButton>
+            </SignedOut>
           </nav>
 
           {/* Right Section */}
