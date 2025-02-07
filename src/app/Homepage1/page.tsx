@@ -2,8 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { useInView } from 'react-intersection-observer';
-import ClientCountUp from "../component/ClientCountUp";
 
+import dynamic from "next/dynamic";
+
+const ClientCountUp = dynamic(() => import("../component/ClientCountUp"), { ssr: false });
 
 export default function Home() {
 
