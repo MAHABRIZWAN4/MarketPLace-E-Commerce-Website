@@ -122,8 +122,8 @@ export const POST = async (request: Request) => {
       payment_method_types: ["card"],
       line_items: stripeProducts,
       mode: "payment",
-      success_url: `http://localhost:3000/success`,
-      cancel_url: `http://localhost:3000/`,
+      success_url: `https://market-place-e-commerce-website-x4.vercel.app/success`,
+      cancel_url: `https://market-place-e-commerce-website-x4.vercel.app/`,
     });
 
     return NextResponse.json({ url: session.url });
